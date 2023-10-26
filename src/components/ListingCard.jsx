@@ -1,16 +1,29 @@
 
 import {useState, useContext} from "react"
-import { RatingContext } from "../context/rating.context"
+import LikeButton from "./LikeButton"
 
-const ListingCard = () => {
-    const {rating} = useContext(RatingContext)
+const ListingCard = ({ singleListing, updateListing }) => {
+    // updateListing with like
+   
 
   return (
-    <div className={"ListingCard " + rating}>
-    
-        <button className="theme-btn" onClick={toggleRating}>
+    <div>
+
+    {/* {
+      listing && */}
+
+      <>
+        <h2>{singleListing.streetAddress}</h2>
+        
+        <LikeButton singleListing={singleListing} updateListing={updateListing}/>
+      </>
+    {/* } */}
+
+        {/* <button className="theme-btn" onClick={toggleRating}>
         {rating === "empty" ? "solid" : "empty"}
-      </button>
+      </button> */}
+
+      {/* <hr /> */}
 
     </div>
   )

@@ -2,6 +2,7 @@ import { API_URL } from "./API_URL";
 
 import axios from "axios";
 
+//appends the token to the header when making a GET request to the API/route (example, API/listings)
 export const get = (route) => {
   let token = localStorage.getItem("authToken");
 

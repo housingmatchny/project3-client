@@ -32,7 +32,7 @@ const Signin = () => {
         console.log('JWT token', response.data.authToken );
         storeToken(response.data.authToken)
         authenticateUser()
-        navigate('/');
+        navigate('/listings');
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -61,7 +61,7 @@ const Signin = () => {
           onChange={handlePassword}
         />
 
-        <button type="submit">Login</button>
+        <button type="submit">Sign in</button>
       </form>
       { errorMessage && <p className="error-message">{errorMessage}</p> }
 

@@ -30,7 +30,7 @@ const Signup = () => {
     post('/auth/signup', requestBody)
       .then((response) => {
         console.log("Created user ===>", response.data)
-        navigate('/login');
+        navigate('/listings');
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -69,12 +69,13 @@ const Signup = () => {
         />
 
         <button type="submit">Sign Up</button>
+        {/* navigate to listings */}
       </form>
 
       { errorMessage && <p className="error-message">{errorMessage}</p> }
 
       <p>Already have account?</p>
-      <Link to="/login"> Sign in </Link>
+      <Link to="/signin"> Sign in </Link>
     </div>
   )
 }
