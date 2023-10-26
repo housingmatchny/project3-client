@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth.context"
 import { get } from "../services/authService"
 
 import { Rating } from 'react-simple-star-rating'
-
+//source: npm package, react-simple-star-rating
 
 const StarButton = ({ setStars }) => {
   const [rating, setRating] = useState(0)
@@ -37,5 +37,8 @@ const StarButton = ({ setStars }) => {
   }
   
   export default StarButton
+
+
+
 
 

@@ -1,11 +1,10 @@
 import {useState, useEffect, useContext} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { get, post } from '../services/authService';
 import { AuthContext } from '../context/auth.context';
-import LikeButton from "../components/LikeButton";
-import ReviewCard from '../components/ReviewCard';
 import StarButton from '../components/StarButton';
 import { Rating } from 'react-simple-star-rating'
+import EditReview from './EditReview';
 
 const ListingDetails = () => {
 
@@ -17,7 +16,7 @@ const ListingDetails = () => {
   
   const { id } = useParams()
 
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)//allows us to access the values of AuthContext; in this case, we destructure user out of AuthContext
 
 
   const getListing = () => {
@@ -38,14 +37,13 @@ const ListingDetails = () => {
     .catch((err) => {
       console.log(err)
     })
-
-
   }
 
   const handleComment = (e) => {
     setComment(e.target.value)
-  }
+  } //triggers new comment
 
+  //triggers new review, inclusive of comment and stars
   const handleSubmit = (e) => {
 
     e.preventDefault()
@@ -56,7 +54,6 @@ const ListingDetails = () => {
       listing: id,
       tenant: user._id
     }
-
 
     post('/reviews/add-review', newReview)
     .then((response) => {
@@ -74,7 +71,6 @@ const ListingDetails = () => {
     return review.tenant._id === user._id
   }
 
-
   useEffect(() => {
 
     getListing()
@@ -82,74 +78,88 @@ const ListingDetails = () => {
   }, [id])
   
     return (
-    <div>
+      <div>
+        {listing && (
+          <>
+            <Link to={`/listings`}>Back to Listings</Link>
+            {listing.imgUrl ? (
+              <img src={listing.imgUrl} alt="property image" />
+            ) : (
+              <p>No image available</p>
+            )}
+            <h2>{listing.streetAddress}</h2>
+            <h3>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0,
+              }).format(listing.price)}
+            </h3>
+            <Rating
+              emptyStyle={{ display: "flex" }}
+              fillStyle={{ display: "-webkit-inline-box" }}
+              initialValue={average}
+              readonly={true}
+              allowFraction={true}
+            />
+            <hr />
+            <h3>Details</h3>
+            <h4>{`Beds: ${listing.beds} | Baths: ${listing.baths}`}</h4>
+            <p>{`${listing.neighborhood} | ${listing.borough} | ${listing.zipCode}`}</p>
+            <p>{listing.phone}</p>
+            <hr />
+          </>
+        )}
 
-    {
-      listing &&
+        <h3>Reviews from the Community</h3>
       
-      <>
+        {/* review form below */}
+        <form onSubmit={handleSubmit}>
+          <h2>Write a review</h2>
+          <StarButton setStars={setStars} />
 
-        <h3>{listing.neighborhood}</h3>
-         <Rating emptyStyle={{ display: "flex" }} fillStyle={{ display: "-webkit-inline-box" }} 
-         initialValue={average}
-         readonly={true}
-         allowFraction={true}
+          <label>Comment:</label>
+          <input
+            type="text"
+            name="comment"
+            value={comment}
+            onChange={handleComment}
+          />
 
-         />
+          <button type="submit">Post</button>
+        </form>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      </>
+        {user && listing && listing.reviews.length ? (
+          <>
+            {listing.reviews.map((review) => {
+              return (
+                <div key={review._id}>
+                  <h3>{review.comment}</h3>
+                  <p>{review.stars}</p>
+                  <p>{review.tenant.name}</p>
+                  {reviewOwner(review) && 
+                    <Link to={`/reviews/edit-review/${review._id}`}>
+                        <button>Edit</button>
+                    </Link>}
+                    {/* //onClick render EditReview component */}
+                 
+            
+                  {reviewOwner(review) && 
+                    <button>Delete</button>}
+                    {/* //onClick render DeleteReview component */}
 
 
-    }
-    {/* //add review form */}
-      <form 
-      onSubmit={handleSubmit}
-      >
-        <StarButton setStars={setStars} />
-        
-        <label>Comment:</label>
-        <input type="text" name="comment" value={comment} onChange={handleComment}/>
 
-        {/* <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        /> */}
-
-
-        <button type="submit">Post</button>
-      </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      {user && listing && listing.reviews.length ?
-      
-      <>
-        {
-          listing.reviews.map((review) => {
-            return (
-              <div>
-                <h3>{review.comment}</h3>
-                <p>{review.stars}</p>
-                <p>{review.tenant.name}</p>  
-                {
-                  reviewOwner(review) && <button>Edit Review</button>
-                }          
-                {
-                  reviewOwner(review) && <button>Delete Review</button>
-                }          
-              </div>
-            )
-          })
-        }
-      </>
-
-      : <p>No reviews yet</p>
-
-      }
-    </div>
-  );
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <p>No reviews yet</p>
+        )}
+      </div>
+    );
 }
 
 export default ListingDetails

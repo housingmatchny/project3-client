@@ -1,8 +1,8 @@
 // src/pages/Signup.jsx
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../context/auth.context";
 import { post } from "../services/authService";
 
 
@@ -11,7 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-
+  const {storeToken, authenticateUser} = useContext(AuthContext) 
   const navigate = useNavigate(); //uses the useNavigate hook to access the navigation function; 
   
   const handleEmail = (e) => setEmail(e.target.value);
@@ -29,6 +29,8 @@ const Signup = () => {
     // If the request resolves with an error, set the error message in the state
     post('/auth/signup', requestBody)
       .then((response) => {
+        storeToken(response.data.authToken)
+        authenticateUser() //check authenticity of token and decode the token if authentic
         console.log("Created user ===>", response.data)
         navigate('/listings');
       })

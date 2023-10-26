@@ -20,10 +20,6 @@ const Listings = () => {
 
   }
 
-
-
-
-
   useEffect(() => {
 
     updateListing()
@@ -32,25 +28,31 @@ const Listings = () => {
 
   return (
     <div>
-      {
-        listings.length ? 
+      {listings.length ? (
         <>
-         { listings.map((listing) => {
+          {listings.map((listing) => {
             return (
-              <>
-                 <ListingCard singleListing={listing} updateListing={updateListing}/>
-                  <Link to={`/listings/details/${listing._id}`} key={listing?._id}>see details</Link>
-                  <hr />
-              </>
-              
-              )
+              <div key={listing._id}>
+                <ListingCard
+                  singleListing={listing}
+                  updateListing={updateListing}
+                />
+                <Link
+                  to={`/listings/details/${listing._id}`}
+                  key={listing?._id}
+                >
+                  See details
+                </Link>
+                <hr />
+              </div>
+            );
           })}
-
         </>
-        : <p>Loading...</p>
-      }
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
-  )
+  );
 }
 
 export default Listings

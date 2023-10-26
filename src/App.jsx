@@ -6,7 +6,7 @@ import Signin from './pages/Signin'
 import TenantProfile from './pages/TenantProfile'
 import Navbar from './components/Navbar'
 import Listings from './pages/Listings'
-import Reviews from './pages/Reviews'
+import EditReview from './pages/EditReview'
 import ListingDetails from './pages/ListingDetails'
 import { Routes, Route } from 'react-router-dom'
 
@@ -25,7 +25,8 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/listings' element={<Listings />} />
-          <Route path='/reviews' element={<Reviews />} />
+          <Route path='/reviews/edit-review/:reviewId' element={<EditReview />} />
+          {/* <Route path='/reviews' element={<Reviews />} /> */}
           <Route path='/profile/:tenantId' element={<TenantProfile />} />
           <Route path='/listings/details/:id' element={ <ListingDetails /> } />
 

@@ -6,6 +6,7 @@ import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline'
 import { AuthContext } from "../context/auth.context"
 import { get } from "../services/authService"
 
+//check npm package for the heroicons, not the heroicons site
 
 const LikeButton = ({singleListing, updateListing}) => {
   const {user} = useContext(AuthContext)
