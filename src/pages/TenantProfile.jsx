@@ -1,74 +1,89 @@
+//tenant profile page
+//will show image url, buttons to link to personal and preferences (hold off on prefs) pages, reviews specific to this tenant, and liked listings
 
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { get } from "../services/authService";
+import { AuthContext } from "../context/auth.context";
+import ReviewCard from "../components/ReviewCard";
+import Reviews from "./Reviews";
 
-const Profile = () => {
+const TenantProfile = () => {
+  const [tenantInfo, setTenantInfo] = useState(null);
+  const { tenantId } = useParams();
+  const { user, setUser, storeToken } = useContext(AuthContext);
+
+  let reviewOwner = (review) => {
+    return review.tenant._id === user._id;
+  };
+
+  const getTenantInfo = (tenantId) => {
+    // if (tenantId) {
+    get(`/profile/${tenantId}`)
+      .then((response) => {
+        console.log("Tenant info ==>", response.data);
+        setTenantInfo(response.data.user);
+        setUser(response.data.user);
+        storeToken(response.data.authToken);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // } else {
+    //   console.log("Invalid tenantId");
+    // }
+  };
+
+  useEffect(() => {
+    getTenantInfo(tenantId);
+  }, [tenantId]);
+
   return (
-    <div>Profile</div>
-  )
-}
+    <div>
+      <h3 className="text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+        Your profile
+      </h3>
+      <hr />
+      <br />
+      <br />
+      <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
+        Your reviews
+      </h3>
+      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 w-1/2 mx-auto">
+        {tenantInfo && (
+          <>
+            {tenantInfo.reviews.length ? (
+              <>
+                {tenantInfo.reviews.map((review) => {
+                  return (
+                    <ReviewCard
+                      key={review?._id}
+                      singleReview={review}
+                      getTenantInfo={getTenantInfo}
+                      // updateReview={updateReview}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <p>No reviews</p>
+            )}
+          </>
+        )}
+      </div>
+      <br />
+      <div className="mx-auto text-center">
+      <Link to={`/profile/personal/${tenantId}`}>
+        <button
+          type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Update personal information
+        </button>
+      </Link>
+      </div>
+    </div>
+  );
+};
 
-export default Profile
-
-
-// src/pages/ProjectDetailsPage.jsx
-
-// import { useState, useEffect } from "react";
-
-// import { Link, useParams } from "react-router-dom";
-// import AddTask from "../components/AddTask";
-// import TaskCard from "../components/TaskCard";
-
-// import { get } from "../services/authService";
-
-
-// function ProjectDetailsPage () {
-//   const [project, setProject] = useState(null);
-
-//     const { projectId } = useParams()
-
-//     const getProject = (id) => {
-
-//         get(`/projects/${id}`)
-//             .then((response) => {
-//                 console.log("Found project ==>", response.data)
-//                 setProject(response.data)
-//             })
-//             .catch((err) => {
-//                 console.log(err)
-//             })
-
-//     }
-
-//     useEffect(() => {
-
-//         getProject(projectId)
-
-//     }, [])
-  
-//   return (
-//     <div className="ProjectDetails">
-//       {project && (
-//         <>
-//           <h1>{project.title}</h1>
-//           <p>{project.description}</p>
-//         </>
-//       )}
-
-//       <AddTask refreshProject={getProject} projectId={projectId} />
-
-//       {project &&
-//         project.tasks.map((task) => (
-//             <TaskCard key={task._id} {...task} />
-//         ))}
-
-//       <Link to="/projects">
-//         <button>Back to projects</button>
-//       </Link>
-
-//       <Link to={`/projects/edit/${projectId}`}>
-//         <button>Edit Project</button>
-//       </Link>
-//     </div>
-//   );
-// }
-
-// export default ProjectDetailsPage;
+export default TenantProfile;

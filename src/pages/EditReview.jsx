@@ -10,7 +10,7 @@ const EditReview = () => {
     const [comment, setComment] = useState('')
     const [stars, setStars] = useState('')
 
-    const { reviewId } = useParams(); //not review._id from the params?
+    const { reviewId } = useParams(); //not review._id; we have to pull the reviewId from the params, we're not getting it from the object
     const navigate = useNavigate();  
  
   // This effect will run after the initial render and each time
@@ -24,7 +24,7 @@ const EditReview = () => {
            We update the state with the previous review data coming from the response.
            This way we set inputs to show the previous inputs
          */
-         const prevReview = response.data;
+         const prevReview = response.data; //access data 
          console.log("Previous review ==>", prevReview)
          setComment(prevReview.comment);
          setStars(prevReview.stars);
@@ -48,31 +48,34 @@ const EditReview = () => {
         console.log('Updated ===>', response.data)
         // Once the request is resolved successfully and the review
         // is updated we navigate back to the listing details page
-        navigate(`/listings/${listingId}`)
+        navigate(-1)
       })
       .catch((err) => {
         console.log(err)
       })
   };
 
-  const deleteReview = () => {     
-    // Make a DELETE request to delete the project
-    axiosDelete(`/reviews/delete-review/${reviewId}`)//change url to edit-review?
-      .then((response) => {
-        console.log("Deleted ===>", response)
-        // Once the delete request is resolved successfully
-        // navigate back to the listing details page.
-        navigate(`/listings/${listingId}`);
-      })
-      .catch((err) => console.log(err));
-  }; 
+  // const deleteReview = () => {     
+  //   // Make a DELETE request to delete the project
+  //   axiosDelete(`/reviews/delete-review/${reviewId}`)
+  //     .then((response) => {
+  //       console.log("Deleted ===>", response)
+  //       // Once the delete request is resolved successfully
+  //       // navigate back to the listing details page.
+  //       navigate(-1);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }; 
 
 
   return (
     <div>
+      <button onClick={() => navigate(-1)}>Back to Listing</button>
+      {/* <Link to={`/listings/details/${listingId}`}>Back to Listing</Link> */}
     <form onSubmit={handleFormSubmit}>
           <h2>Edit review</h2>
-          <StarButton setStars={setStars} stars={stars}/>
+          <StarButton setStars={setStars} stars={stars}/> 
+          {/* setStars is like the middleman that allows us to update the stars value; stars is the value.  In this case, it makes sense to pass both setStars and stars to the StarButton as props b/c we will be using both to edit the review.  What we pass down is situational.  */}
 
           <label>Comment:</label>
           <input
@@ -85,7 +88,7 @@ const EditReview = () => {
           <button type="submit">Submit changes</button>
         </form>
 
-        <button onClick={deleteReview}>Delete review</button>
+        {/* <button onClick={deleteReview}>Delete</button> */}
     </div>
   )
 }

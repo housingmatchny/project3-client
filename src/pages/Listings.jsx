@@ -1,7 +1,11 @@
+//all listings
+//do we add StarButton with default of average?
+
 import ListingCard from "../components/ListingCard"
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react"
 import { get } from "../services/authService"
-import { Link } from 'react-router-dom'
+import { Carousel } from 'flowbite-react';
 
 const Listings = () => {
 
@@ -28,30 +32,24 @@ const Listings = () => {
 
   return (
     <div>
-      {listings.length ? (
-        <>
-          {listings.map((listing) => {
-            return (
-              <div key={listing._id}>
-                <ListingCard
-                  singleListing={listing}
-                  updateListing={updateListing}
-                />
-                <Link
-                  to={`/listings/details/${listing._id}`}
-                  key={listing?._id}
-                >
-                  See details
-                </Link>
-                <hr />
-              </div>
-            );
-          })}
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    <h3 className="text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Your housing matches</h3>
+    {/* carousel wraps all the cards, not each individual card; false maintains a static carousel; had to remove Carousel b/c it was not working */}
+    {listings.length ? (
+      <div>
+        {listings.map((listing) => (
+          <div key={listing._id}>
+            <ListingCard
+              singleListing={listing}
+              updateListing={updateListing}
+            />
+            {/* <Link to={`/listings/details/${listing._id}`} key={listing?._id}> See details </Link> */}
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p>Loading...</p>
+    )}
+  </div>
   );
 }
 

@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import TenantProfile from './pages/TenantProfile'
+import TenantPersonal from './pages/TenantPersonal'
 import Navbar from './components/Navbar'
 import Listings from './pages/Listings'
 import EditReview from './pages/EditReview'
@@ -16,8 +17,7 @@ function App() {
   return (
       <div>
         <Navbar />
-        
-        <h1>Get matched to affordable housing</h1>
+      
 
         <Routes>
           
@@ -25,10 +25,11 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/listings' element={<Listings />} />
+          <Route path='/listings/details/:id' element={ <ListingDetails /> } />
           <Route path='/reviews/edit-review/:reviewId' element={<EditReview />} />
           {/* <Route path='/reviews' element={<Reviews />} /> */}
           <Route path='/profile/:tenantId' element={<TenantProfile />} />
-          <Route path='/listings/details/:id' element={ <ListingDetails /> } />
+          <Route path='/profile/personal/:tenantId' element={ <TenantPersonal /> } />
 
         </Routes>
 
