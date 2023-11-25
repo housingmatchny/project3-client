@@ -1,4 +1,4 @@
-//Card for writing reviews: user can write comment and rate the stars; model after Yelp review card
+//Review card that appears on person's profile
 
 import StarButton from "./StarButton";
 import { axiosDelete, get } from "../services/authService";
@@ -7,44 +7,23 @@ import { Rating } from "react-simple-star-rating";
 import { AuthContext } from "../context/auth.context";
 import { Link } from "react-router-dom";
 import StarButtonAverage from "./StarButtonAverage";
+import { getAverageStar } from "../services/getAverageStar";
 
 
-//singleReview and updateReview destructured out of props; passed down from Reviews page
-//shows the Star Button and comment; according to the Review model, each review has a comment key; remember, singleReview comes from Reviews, where singleReview={review}
-//passes down singleReview and updateReview to the Star Button as props
+//singleReview destructured out of props; passed down from TenantProfile page
 
-const ReviewCard = ({ singleReview, getTenantInfo }) => {
+const ReviewCard = ({ singleReview, getTenantInfo, handleError }) => {
 
   const { user } = useContext(AuthContext)
-// const [reviews, setReviews] = useState([])
 
-//   let updateReview = () => {
+  const [stars, setStars] = useState(getAverageStar(singleReview.listing))
 
-//     //get all the reviews from the API and update state with the reviews data
-//     get('/reviews')
-//     .then((response) => {
-//       console.log("Review ====>", response.data)
-//       setReviews(response.data)
-//     })
-//     .catch((err) => {
-//       console.log(err)
-//     })
+  let reviewOwner = (review) => {
+    console.log("Review===>", review)
+    return review.tenant === user._id
+  } //returns true or false
 
-//   }
-
-//   useEffect(() => {
-
-//     updateReview()
-
-//   }, [])
-
-
-let reviewOwner = (review) => {
-  console.log("Review===>", review)
-  return review.tenant === user._id
-} //returns true or false
-
-const deleteReview = (reviewId) => { 
+  const deleteReview = (reviewId) => { 
 
   // Make a DELETE request to delete the project
   axiosDelete(`/reviews/delete-review/${reviewId}`)
@@ -56,38 +35,55 @@ const deleteReview = (reviewId) => {
       // navigate(0);
     })
     .catch((err) => console.log(err));
-}; 
+  }; 
+
+  // useEffect(() => {
+  //   set
+  // }, [singleReview])
+
+
 
   return (
    <div>
    {singleReview ? (
-  <>
-
+    <>
       <div key={singleReview._id}>
         <div className="space-y-1 font-medium dark:text-white">
-          <p>{singleReview.tenant.name}</p>
+          
+          { singleReview.listing &&
+            <Link to={`/listings/details/${singleReview.listing._id}`}>
+              <div>
+                <img src={singleReview.listing.imgUrl} />
+                {singleReview.listing.streetAddress}
+              </div>
+            </Link>
+          }
+
           <div className="flex items-center mb-1">
-            {/* <StarButton stars={singleReview.stars} /> */}
-            <StarButtonAverage overallRating={singleReview.stars} />
+            <StarButton stars={stars} setStars={setStars} />
           </div>
           <p className="mb-2 text-gray-500 dark:text-gray-400">{singleReview.comment}</p>
 
           {/* //if the user exists and is the owner of the review */}
           {user && reviewOwner(singleReview) && (
-            <Link to={`/reviews/edit-review/${singleReview._id}`} className="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
-              Edit
-            </Link>
+            <div className="flex items-center mt-3">
+              <Link to={`/reviews/edit-review/${singleReview._id}`}> 
+                <button className="block mb-5 text-sm font-medium pr-4 text-blue-600 hover:underline dark:text-blue-500">
+                  Edit
+                </button>
+              </Link>
+                   
+              <button
+                className="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500" onClick={() => deleteReview(singleReview._id)}>
+                Delete
+              </button>
+            </div>
           )}
-          
-          {user && reviewOwner(singleReview) && (
-            <Link onClick={() => deleteReview(singleReview._id)}>
-              Delete
-            </Link>
-          )}
+        
         </div>
       </div>
-  </>
-) : <p>No reviews available</p>}
+    </>
+) : <p>{handleError}</p>}
 </div>
 )}
 

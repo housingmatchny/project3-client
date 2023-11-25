@@ -11,7 +11,7 @@ const Reviews = () => {
     //get all the reviews from the API and update state with the reviews data
     get('/reviews')
     .then((response) => {
-      console.log("Review ====>", response.data)
+      // console.log("Review ====>", response.data)
       setReviews(response.data)
     })
     .catch((err) => {
@@ -33,7 +33,7 @@ const Reviews = () => {
         reviews.length ? 
         <>
          { reviews.map((review) => {
-            return <ReviewCard key={review?._id} singleReview={review} updateReview={updateReview}/>
+            return <ReviewCard key={review?._id} singleReview={review} setSingleReview={setReviews} updateReview={updateReview}/>
           })}
 
         </>

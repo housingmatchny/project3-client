@@ -6,6 +6,8 @@ import { useState, useEffect, useContext } from "react";
 import { get } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import ReviewCard from "../components/ReviewCard";
+import ListingCard from "../components/ListingCard";
+import StarButtonAverage from "../components/StarButtonAverage";
 import Reviews from "./Reviews";
 
 const TenantProfile = () => {
@@ -13,9 +15,15 @@ const TenantProfile = () => {
   const { tenantId } = useParams();
   const { user, setUser, storeToken } = useContext(AuthContext);
 
-  let reviewOwner = (review) => {
-    return review.tenant._id === user._id;
-  };
+  const [errorMessage, setErrorMessage] = useState(null)
+
+  const handleError = () => {
+    setErrorMessage("You haven't written any reviews.")
+  }
+
+  // let reviewOwner = (review) => {
+  //   return review.tenant._id === user._id;
+  // };
 
   const getTenantInfo = (tenantId) => {
     // if (tenantId) {
@@ -28,7 +36,10 @@ const TenantProfile = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      // .finally(() => {
+      //   console.log("Tenant info, line 41===>", tenantInfo.reviews)
+      // })
     // } else {
     //   console.log("Invalid tenantId");
     // }
@@ -43,9 +54,8 @@ const TenantProfile = () => {
       <h3 className="text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
         Your profile
       </h3>
-      <hr />
-      <br />
-      <br />
+
+      <hr className="my-4"/>
       <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
         Your reviews
       </h3>
@@ -66,17 +76,50 @@ const TenantProfile = () => {
                 })}
               </>
             ) : (
-              <p>No reviews</p>
+              <p>{handleError}</p>
             )}
           </>
         )}
       </div>
       <br />
+      
+      {/* Likes */}
+
+      <hr className="my-4"/>
+      <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
+        Your saved listings
+      </h3>
+      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 w-1/2 mx-auto">
+        {tenantInfo && (
+          <>
+            {tenantInfo.likes.length ? (
+              <>
+                {tenantInfo.likes.map((likedListing) => {
+                  return (
+                    // <StarButtonAverage overallRating={overallRating} />
+                    <ListingCard
+                      key={likedListing?._id}
+                      singleListing={likedListing}
+                      getTenantInfo={getTenantInfo}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <p>No saved listings</p>
+            )}
+          </>
+        )}
+      </div>
+
+
+
+
       <div className="mx-auto text-center">
       <Link to={`/profile/personal/${tenantId}`}>
         <button
           type="button"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
           Update personal information
         </button>

@@ -7,13 +7,25 @@ import StarButtonAverage from "./StarButtonAverage"
 import { Card } from 'flowbite-react';
 import { Carousel } from 'flowbite-react';
 import { Rating } from 'react-simple-star-rating'
+import { StarContext } from "../context/star.context";
+import { ListingContext } from "../context/listing.context";
+import { getAverageStar } from "../services/getAverageStar";
 
 //updateListing => updates listing with likes
-//props passed down from Listings and Listing Details
-//singleListing => 'listing' in ListingDetails
-const ListingCard = ({ singleListing, updateListing }) => {
+//cannot pass overallRating from Listing Details; ListingCard is not under Listing Details in the component tree; therefore we define the function here and pass it down to StarButton Average to show up in the Tenant Profile page
+//singleListing, updateListing from Listings
+const ListingCard = ({ singleListing }) => {
   
-  // const [rating,setRating] = useState('')
+  // const overallRating = () => {
+  //   return singleListing.reviews.length
+  //   ? singleListing.reviews.reduce(
+  //       (accumulator, review) => accumulator + review.stars,
+  //       0
+  //     ) / singleListing.reviews.length
+  //   : 0;
+  //   };
+
+    // const { average } = useContext(ListingContext)
 
   return (
     // <Carousel slide={false}>
@@ -27,11 +39,20 @@ const ListingCard = ({ singleListing, updateListing }) => {
           </p>
         </h5>
         <p>{singleListing.borough}</p>
-        {/* brought average formula here */}
-        <StarButtonAverage overallRating={(singleListing.reviews.reduce(
+
+
+        <StarButtonAverage overallRating={getAverageStar(singleListing)} />
+        
+
+        {/* {singleListing.reviews.length ? <StarButtonAverage overallRating={(singleListing.reviews.reduce(
             (accumulator, review) => accumulator + review.stars,
-            0
-          ) / singleListing.reviews.length)} />
+            0) / singleListing.reviews.length)} /> : <StarButtonAverage overallRating={0}/>}  */}
+
+            {/* {console.log("Reduce ==>", singleListing.reviews.reduce(
+            (accumulator, review) => accumulator + review.stars,
+            0) )}
+            {console.log("Length ==>", singleListing.reviews.length)} */}
+
         <div className="flex space-x-20">
           <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
             {new Intl.NumberFormat("en-US", {
@@ -44,7 +65,7 @@ const ListingCard = ({ singleListing, updateListing }) => {
 
         </div>
         
-        <LikeButton singleListing={singleListing} updateListing={updateListing}/>
+        <LikeButton singleListing={singleListing} />
         </div>
     </Card>
     // </Carousel>

@@ -15,7 +15,7 @@ const TenantPersonal = () => {
 
   const { user, setUser, storeToken } = useContext(AuthContext);
 
-  const { tenantId } = useParams();
+  const { tenantId } = useParams(); //tenantId extracted from URL parameters
 
   const getTenantInfo = (tenantId) => {
     get(`/profile/${tenantId}`)
@@ -24,6 +24,10 @@ const TenantPersonal = () => {
         setTenantInfo(response.data.user); //if you look at the response.data body of TenantInfo, you'll see user as a key
         setUser(response.data.user); //from Context
         storeToken(response.data.authToken);
+        // console.log("Name ==>", response.data.user.name)
+        setName(response.data.user.name)
+        setEmail(response.data.user.email)
+        setPassword(response.data.user.password)
       })
       .catch((err) => {
         console.log(err);
@@ -43,8 +47,8 @@ const TenantPersonal = () => {
     put(`/profile/personal/${tenantId}`, updatedProfile)
       .then((response) => {
         console.log("Updated profile ===>", response.data);
+        // console.log("TenantId before getTenantInfo:", tenantId);
         getTenantInfo();
-        // setComment(""); reset/clear form after successful submission
       })
       .catch((err) => {
         console.log(err);
@@ -74,8 +78,9 @@ const TenantPersonal = () => {
   };
 
   useEffect(() => {
+    // console.log("State after update:", { name, email, password });
     getTenantInfo(tenantId);
-  }, []);
+  }, [tenantId]); //tenantId is a dependency for useEffect; triggers useEffect when tenantId changes
 
   return (
     <>
@@ -103,7 +108,7 @@ const TenantPersonal = () => {
                   type="text"
                   id="name"
                   name="name"
-                  value={tenantInfo.name}
+                  value={name}
                   onChange={handleName}
                   className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
                 />
@@ -122,8 +127,8 @@ const TenantPersonal = () => {
                 <input
                   type="email"
                   id="email"
-                  name="name"
-                  value={tenantInfo.email}
+                  name="email"
+                  value={email}
                   onChange={handleEmail}
                   className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
                 />
@@ -143,17 +148,18 @@ const TenantPersonal = () => {
                   type="password"
                   id="password"
                   name="password"
-                  value={tenantInfo.password}
-                  onChange={handleEmail}
+                  value={password}
+                  onChange={handlePassword}
                   className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
                 />
               </div>
             </div>
-            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit changes</button>
+
+            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit changes</button>
           </form>
         )}
-        {/* <button onClick={deleteProfile}>Delete</button> */}
-        <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={deleteProfile}>Delete account</button>
+       
+        <button type="submit" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={deleteProfile}>Delete account</button>
       </div>
     </>
   );

@@ -4,12 +4,15 @@ import { useState, useContext } from "react"
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid'
 import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline'
 import { AuthContext } from "../context/auth.context"
+import { ListingContext } from "../context/listing.context"
 import { get } from "../services/authService"
 
 //check npm package for the heroicons, not the heroicons site
 
-const LikeButton = ({singleListing, updateListing}) => {
+const LikeButton = ({ singleListing }) => {
   const {user} = useContext(AuthContext)
+  const { updateListing } = useContext(ListingContext)
+
 
   const returnLike = (listing) => {
     return listing.likes.some((like) => like === user?._id);
@@ -17,12 +20,14 @@ const LikeButton = ({singleListing, updateListing}) => {
 
   const toggleLike = (listing) => {
 
+    console.log("Toggling", listing,user)
+
     if (!returnLike(listing)) {
       // if false, then add a like
       get(`/likes/add-like/${listing._id}`)
         .then((results) => {
           console.log("Added like", results.data);
-          updateListing(); //passed in as a prop from Listings page; gets all the listings
+          updateListing(results.data.listing); //passed in as a prop from Listings page; gets all the listings
         })
         .catch((err) => {
           console.log(err);
@@ -31,8 +36,8 @@ const LikeButton = ({singleListing, updateListing}) => {
     else {
       get(`/likes/remove-like/${listing._id}`)
         .then((results) => {
-          console.log(results.data);
-          updateListing();
+          console.log("Removed", results.data);
+          updateListing(results.data.listing);
         })
         .catch((err) => {
           console.log(err);

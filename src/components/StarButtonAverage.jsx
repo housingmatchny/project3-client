@@ -2,11 +2,15 @@
 
 import { useState, useContext } from "react"
 import { Rating } from 'react-simple-star-rating'
-//source: npm package, react-simple-star-rating
+import { ListingContext } from "../context/listing.context";
 
-//setStars and stars passed down from ListingDetails page
-const StarButtonAverage = ( {overallRating} ) => {
+//Rating source: npm package, react-simple-star-rating
+
+//overall rating passed down from Listing Details page
+const StarButtonAverage = ({ overallRating }) => {
   
+  // const average = useContext(ListingContext)
+
     return (
       <div>
         <Rating
