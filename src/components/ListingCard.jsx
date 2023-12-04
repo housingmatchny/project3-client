@@ -14,7 +14,7 @@ import { getAverageStar } from "../services/getAverageStar";
 //updateListing => updates listing with likes
 //cannot pass overallRating from Listing Details; ListingCard is not under Listing Details in the component tree; therefore we define the function here and pass it down to StarButton Average to show up in the Tenant Profile page
 //singleListing, updateListing from Listings
-const ListingCard = ({ singleListing }) => {
+const ListingCard = ({ singleListing, toggleCard }) => {
   
   // const overallRating = () => {
   //   return singleListing.reviews.length
@@ -31,7 +31,9 @@ const ListingCard = ({ singleListing }) => {
     // <Carousel slide={false}>
     <Card>
     <div className="flex flex-col items-center justify-center">
-       {<img className="object-scale-down h-auto max-w-md drop-shadow-md rounded-md m-auto" src={singleListing.imgUrl} alt="property image" />}
+       <img className="object-scale-down h-auto max-w-md drop-shadow-md rounded-md m-auto" src={singleListing.imgUrl} alt="property image" />
+       {/* <LikeButton className='absolute inset-0 flex justify-center items-center z-10' singleListing={singleListing} /> */}
+       
         
         <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
           <p>
@@ -65,7 +67,7 @@ const ListingCard = ({ singleListing }) => {
 
         </div>
         
-        <LikeButton singleListing={singleListing} />
+        <LikeButton singleListing={singleListing} toggleCard={toggleCard} />
         </div>
     </Card>
     // </Carousel>

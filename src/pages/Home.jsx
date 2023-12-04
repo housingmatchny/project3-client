@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 //   { name: 'Company', href: '#' },
 // ]
 
-export default function Home() {
+function Home() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -165,11 +165,6 @@ export default function Home() {
   );
 }
 
-
-
-
-
-
-// export default Home;
+export default Home;
 
 //source: Stylianou, A. M., & Pich, C. (2019). Beyond domestic violence shelter: Factors associated with housing placements for survivors exiting emergency shelters. Journal of Interpersonal Violence, 1-23.

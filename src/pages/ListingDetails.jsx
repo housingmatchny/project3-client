@@ -3,10 +3,11 @@
 
 import { useState, useEffect, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { get, post } from "../services/authService";
+import { post } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import { ListingContext } from "../context/listing.context";
 import StarButton from "../components/StarButton";
+// import { deleteReview } from "../services/reviewService";
 import ReviewCard from "../components/ReviewCard";
 import ListingCard from "../components/ListingCard";
 import StarButtonAverage from "../components/StarButtonAverage";
@@ -18,11 +19,11 @@ import Reviews from "./Reviews";
 
 
 const ListingDetails = () => {
-  // const [listing, setListing] = useState(null);
+
   const [comment, setComment] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [stars, setStars] = useState(0);
-  // const [average, setAverage] = useState(0);
+
 
   const { id } = useParams(); //listing id out of params
 
@@ -31,31 +32,6 @@ const ListingDetails = () => {
   const { listings, getListing, listing, average, updateListing } = useContext(ListingContext)
 
   const navigate = useNavigate(); //allows us to navigate
-
-  //get listing by id from API and update listing from null to the listing details
-  //calculate the average star rating score
-  //  getListing = (id) => {
-  //   // get(`/listings/details/${id}`)
-  //   //   .then((response) => {
-  //   //     console.log("Found Listing ===>", response.data);
-  //   //     setListing(response.data);
-
-  //     let thisListing = listings.find(listing => listing._id === id)
-
-  //       let thisAverage =
-  //         thisListing.reviews.reduce(
-  //           (accumulator, review) => accumulator + review.stars,
-  //           0
-  //         ) / response.data.reviews.length;
-  //       console.log("Average", thisAverage);
-  //       if (thisAverage) {
-  //         setAverage(thisAverage);
-  //       }
-  //     // })
-  //     // .catch((err) => {
-  //     //   console.log(err);
-  //     // });
-  // };
 
   //triggers new review, inclusive of comment and stars
   const handleSubmit = (e) => {
@@ -165,7 +141,7 @@ const ListingDetails = () => {
 
             <div>
               <h3 className="text-2xl mb-4 font-semibold text-gray-900 dark:text-white">
-                Community Reviews
+                {`Community Reviews (${listing.reviews.length})`}
               </h3>
             </div>
 
@@ -216,12 +192,6 @@ const ListingDetails = () => {
                       <p>{review.tenant.name}</p>
                       <div className="flex items-center mb-1">
                         <StarButton stars={review.stars} read={true}/>
-                        {/* // <Rating
-                        //   emptyStyle={{ display: "flex" }}
-                        //   fillStyle={{ display: "-webkit-inline-box" }}
-                        //   // onClick={handleRating}
-                        //   initialValue={review.stars}
-                        // /> */}
                       </div>
                       <p className="font-normal mb-2 pb-2 text-gray-500 dark:text-gray-400">
                         {review.comment}
@@ -248,7 +218,7 @@ const ListingDetails = () => {
                 ))}
               </>
             ) : (
-              <p>No reviews yet</p>
+              <p></p>
             )}
           </div>
         </>

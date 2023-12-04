@@ -32,7 +32,7 @@ const TenantProfile = () => {
         console.log("Tenant info ==>", response.data);
         setTenantInfo(response.data.user);
         setUser(response.data.user);
-        storeToken(response.data.authToken);
+        // storeToken(response.data.authToken);
       })
       .catch((err) => {
         console.log(err);
@@ -44,6 +44,15 @@ const TenantProfile = () => {
     //   console.log("Invalid tenantId");
     // }
   };
+
+  const toggleCard = (i) => {
+    console.log("This is our unliked index", i)
+    let newLikes = [...tenantInfo.likes]
+    console.log("Likes as found", newLikes)
+    newLikes.splice(i, 1)
+    console.log("New Likes===>", i, newLikes)
+    setTenantInfo((prev) => ({...prev, likes: newLikes}))
+  }
 
   useEffect(() => {
     getTenantInfo(tenantId);
@@ -94,13 +103,15 @@ const TenantProfile = () => {
           <>
             {tenantInfo.likes.length ? (
               <>
-                {tenantInfo.likes.map((likedListing) => {
+                {tenantInfo.likes.map((likedListing, i) => {
                   return (
                     // <StarButtonAverage overallRating={overallRating} />
                     <ListingCard
                       key={likedListing?._id}
                       singleListing={likedListing}
                       getTenantInfo={getTenantInfo}
+                      toggleCard={()=>toggleCard(i)}
+                      // onClick={() => toggleCard(i)}
                     />
                   );
                 })}

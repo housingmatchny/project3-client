@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useContext } from 'react'
 import {Link, useNavigate, useParams } from 'react-router-dom'
-import { put, axiosDelete, get } from '../services/authService'
+import { put, get } from '../services/authService'
 import StarButton from '../components/StarButton'
 import { Label, Textarea } from "flowbite-react";
 import { ListingContext } from '../context/listing.context';
@@ -10,7 +10,10 @@ import { ListingContext } from '../context/listing.context';
 
 const EditReview = () => {
     const [comment, setComment] = useState('')
-    const [stars, setStars] = useState('')
+    const [stars, setStars] = useState(0)
+    const [thisId, setThisId] = useState('')
+
+
 
     const { reviewId } = useParams(); //not review._id; we have to pull the reviewId from the params, we're not getting it from the object
     const navigate = useNavigate();  
@@ -33,6 +36,7 @@ const EditReview = () => {
          console.log("Previous review ==>", prevReview)
          setComment(prevReview.comment);
          setStars(prevReview.stars);
+         setThisId(prevReview._id)
        })
        .catch((error) => console.log(error));
      
@@ -52,27 +56,14 @@ const EditReview = () => {
       .then((response) => {
         console.log('Updated ===>', response.data)
         updateListing(response.data.updatedListing)
-        // Once the request is resolved successfully and the review
-        // is updated we navigate back to the previous page (listing details or Profile?)
+        // Once the request is resolved successfully and the review is updated we navigate back to the previous page (listing details or Profile)
+        // navigate(`/listings/details/${response.data.updatedListing._id}`)
         navigate(-1)
       })
       .catch((err) => {
         console.log(err)
       })
   };
-
-  // const deleteReview = () => {     
-  //   // Make a DELETE request to delete the project
-  //   axiosDelete(`/reviews/delete-review/${reviewId}`)
-  //     .then((response) => {
-  //       console.log("Deleted ===>", response)
-  //       // Once the delete request is resolved successfully
-  //       // navigate back to the listing details page.
-  //       navigate(-1);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }; 
-
 
   return (
     <div>
@@ -84,20 +75,27 @@ const EditReview = () => {
     
 
       <section className="edit-review flex flex-col ml-7">
-        <div className="p-6 mb-10 max-w-lg mx-auto bg-white rounded-xl shadow-lg flex items-start space-x-4 ml-0">
+        <div className="p-6 mb-10 w-100 h-100 mx-auto bg-white rounded-xl shadow-lg flex items-start space-x-4 ml-0">
         <form onSubmit={handleFormSubmit}>
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white mb-7">Edit your review</h5>
 
-          <StarButton setStars={setStars} stars={stars}/> 
+          {thisId && 
+          
+            <StarButton setStars={setStars} stars={stars}/> 
+          }
 
-          <div className="max-w-lg mb-4" id="textarea">
+          <div className="w-96 h-96 mb-4" id="textarea">
             <Label htmlFor="comment" />
-            <Textarea
-              className="my-2 block"
-              id="comment"
-              value={comment}
-              onChange={handleComment}
-            />
+            {
+              thisId && 
+                  <Textarea
+                    className="my-4 block"
+                    rows="18"
+                    id="comment"
+                    value={comment}
+                    onChange={handleComment}
+                  />
+            }
           </div>
 
           <button

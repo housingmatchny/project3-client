@@ -1,4 +1,4 @@
-//Review card that appears on person's profile
+//Review card that appears on person's profile; not the review in Listing Details
 
 import StarButton from "./StarButton";
 import { axiosDelete, get } from "../services/authService";
@@ -6,6 +6,7 @@ import { useState, useEffect, useContext} from "react";
 import { Rating } from "react-simple-star-rating";
 import { AuthContext } from "../context/auth.context";
 import { Link } from "react-router-dom";
+// import { deleteReview } from "../services/reviewService";
 import StarButtonAverage from "./StarButtonAverage";
 import { getAverageStar } from "../services/getAverageStar";
 
@@ -16,7 +17,7 @@ const ReviewCard = ({ singleReview, getTenantInfo, handleError }) => {
 
   const { user } = useContext(AuthContext)
 
-  const [stars, setStars] = useState(getAverageStar(singleReview.listing))
+  const [stars, setStars] = useState(singleReview.stars)
 
   let reviewOwner = (review) => {
     console.log("Review===>", review)
@@ -30,12 +31,12 @@ const ReviewCard = ({ singleReview, getTenantInfo, handleError }) => {
     .then((response) => {
       console.log("Deleted ===>", response)
       // Once the delete request is resolved successfully
-      // navigate back to the listing details page.
+      // navigate back to previous page.
       getTenantInfo(user._id)
       // navigate(0);
     })
-    .catch((err) => console.log(err));
-  }; 
+    .catch((err) => console.log(err)); 
+  }
 
   // useEffect(() => {
   //   set
@@ -60,7 +61,7 @@ const ReviewCard = ({ singleReview, getTenantInfo, handleError }) => {
           }
 
           <div className="flex items-center mb-1">
-            <StarButton stars={stars} setStars={setStars} />
+            <StarButton stars={stars} setStars={setStars} read={true} />
           </div>
           <p className="mb-2 text-gray-500 dark:text-gray-400">{singleReview.comment}</p>
 
@@ -83,7 +84,8 @@ const ReviewCard = ({ singleReview, getTenantInfo, handleError }) => {
         </div>
       </div>
     </>
-) : <p>{handleError}</p>}
+) : <p>{handleError}</p>
+}
 </div>
 )}
 

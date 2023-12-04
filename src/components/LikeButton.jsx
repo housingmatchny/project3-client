@@ -9,7 +9,7 @@ import { get } from "../services/authService"
 
 //check npm package for the heroicons, not the heroicons site
 
-const LikeButton = ({ singleListing }) => {
+const LikeButton = ({ singleListing, toggleCard }) => {
   const {user} = useContext(AuthContext)
   const { updateListing } = useContext(ListingContext)
 
@@ -38,6 +38,7 @@ const LikeButton = ({ singleListing }) => {
         .then((results) => {
           console.log("Removed", results.data);
           updateListing(results.data.listing);
+          toggleCard()
         })
         .catch((err) => {
           console.log(err);

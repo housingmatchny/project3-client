@@ -1,6 +1,7 @@
 //navbar
 
-import { NavLink, Link, useParams } from "react-router-dom";
+// import { NavLink, Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import { Dialog } from '@headlessui/react'
@@ -19,33 +20,33 @@ const Navbar = () => {
     <>
       {!getToken() && (
         <nav
-          className="flex items-center justify-between p-6 lg:px-8"
-          aria-label="Global"
+          className="flex items-center justify-between p-6 lg:px-8 z-50"
+          // aria-label="Global"
         >
-          <NavLink to="/">
+          <Link to={"/"} className="mr-4 z-50">
             HousingMatch
-          </NavLink>
-          <NavLink to="/signin">
+          </Link>
+          <Link to={"/signin"} className="mr-4 z-50">
             Sign up/Sign in
-          </NavLink>
+          </Link>
         </nav>
       )}
 
       {getToken() && (
         <nav
-          className="flex items-center justify-center p-6 lg:px-8"
+          className="flex items-center justify-center p-6 lg:px-8 z-50"
           aria-label="Global"
         >
         {
           user &&
 
-            <NavLink to={`/profile/${user._id}`} className="mr-4">
+            <Link to={`/profile/${user._id}`} className="mr-4">
               Profile
-            </NavLink>
+            </Link>
         }
-            <NavLink to="/listings" className="mr-4">
+            <Link to="/listings" className="mr-4">
               Listings
-            </NavLink>
+            </Link>
           
             <button onClick={logOutUser}>
               Logout

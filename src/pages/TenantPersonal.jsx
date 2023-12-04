@@ -1,8 +1,8 @@
 //update personal account information
 //pull form example from ListingDetails and EditReview pages
 
-import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect, useContext} from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { get, put, axiosDelete } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
@@ -13,7 +13,9 @@ const TenantPersonal = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const { user, setUser, storeToken } = useContext(AuthContext);
+  const { user, setUser, storeToken, removeToken } = useContext(AuthContext);
+
+  const navigate = useNavigate()
 
   const { tenantId } = useParams(); //tenantId extracted from URL parameters
 
@@ -23,7 +25,7 @@ const TenantPersonal = () => {
         console.log("Tenant info ==>", response.data);
         setTenantInfo(response.data.user); //if you look at the response.data body of TenantInfo, you'll see user as a key
         setUser(response.data.user); //from Context
-        storeToken(response.data.authToken);
+        // storeToken(response.data.authToken);
         // console.log("Name ==>", response.data.user.name)
         setName(response.data.user.name)
         setEmail(response.data.user.email)
@@ -48,7 +50,7 @@ const TenantPersonal = () => {
       .then((response) => {
         console.log("Updated profile ===>", response.data);
         // console.log("TenantId before getTenantInfo:", tenantId);
-        getTenantInfo();
+        getTenantInfo(response.data._id);
       })
       .catch((err) => {
         console.log(err);
@@ -67,11 +69,12 @@ const TenantPersonal = () => {
 
   const deleteProfile = () => {
     // Make a DELETE request to delete the profile
-    axiosDelete(`/profile/personal/${tenantId}`)
+    axiosDelete(`/profile/delete/personal/${tenantId}`)
       .then((response) => {
         console.log("Deleted profile ===>", response);
         // Once the delete request is resolved successfully
         // navigate back to Home page.
+        removeToken()
         navigate("/");
       })
       .catch((err) => console.log(err));
