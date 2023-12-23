@@ -52,11 +52,16 @@ const LikeButton = ({ singleListing, toggleCard }) => {
       {returnLike(singleListing) ? (
         <HeartIconSolid
           style={{ color: "red" }}
-          className="mr-1 h-5 w-5 text-danger"
+          className="mr-1 h-5 w-5"
         />
       ) : (
+        // <HeartIconSolid 
+        //   style={{ color: "white" }}
+        //   className="mr-1 h-5 w-5" 
+        // />
         <HeartIconOutline 
-          className="mr-1 h-5 w-5 text-danger" 
+          style={{ color: "white" }}
+          className="mr-1 h-5 w-5" 
         />
       )}
     </button>

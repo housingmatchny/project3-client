@@ -57,7 +57,10 @@ function AuthProviderWrapper({ children }) {
   }
  
   const logOutUser = () => {
-    navigate('/')       
+    //changes the current browser location to Google
+    //tried window.location.replace to redirect and replace the link history to show as Google. Button stopped working so I reverted back.
+    // navigate('/') -- originally navigated to the home page upon exit       
+    window.location.href = 'https://www.google.com';
     // To log out the user, remove the token
     removeToken();
     // and update the state variables    

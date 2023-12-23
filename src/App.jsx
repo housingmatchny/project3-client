@@ -1,4 +1,3 @@
-// import './App.css'
 // import { useState } from 'react'
 import Home from './pages/Home'
 import Signup from './pages/Signup'
@@ -6,10 +5,12 @@ import Signin from './pages/Signin'
 import TenantProfile from './pages/TenantProfile'
 import TenantPersonal from './pages/TenantPersonal'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import Listings from './pages/Listings'
 import EditReview from './pages/EditReview'
 import ListingDetails from './pages/ListingDetails'
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom'
+import './App.css' 
 
 function App() {
 
@@ -51,10 +52,10 @@ function App() {
             <Route path='/profile/personal/:tenantId' element={ <TenantPersonal /> } />
 
           </Route>
-
-
-
+       
         </Routes>
+        
+        <Footer />
 
         
       </div>
