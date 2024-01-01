@@ -67,50 +67,54 @@ const EditReview = () => {
 
   return (
     <div>
-      <button type="button"
-        className="ml-7 mb-7 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900" onClick={() => navigate(-1)}
-      >
-        Back
-      </button>
-    
+      <section className="edit-review flex flex-col ml-7 min-h-screen">
 
-      <section className="edit-review flex flex-col ml-7">
-        <div className="p-6 mb-10 w-100 h-100 mx-auto bg-white rounded-xl shadow-lg flex items-start space-x-4 ml-0">
-        <form onSubmit={handleFormSubmit}>
-          <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white mb-7">Edit your review</h5>
+        {/* comment outer-box */}
+        <div className="p-6 mb-10 min-w-100 min-h-100 mx-auto bg-white rounded-xl shadow-lg items-start space-x-4 ml-0">
 
-          {thisId && 
-          
-            <StarButton setStars={setStars} stars={stars}/> 
-          }
+          <form onSubmit={handleFormSubmit}>
+            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white mb-7">
+              Edit your review
+            </h5>
 
-          <div className="w-96 h-96 mb-4" id="textarea">
-            <Label htmlFor="comment" />
-            {
-              thisId && 
-                  <Textarea
-                    className="my-4 block"
-                    rows="18"
-                    id="comment"
-                    value={comment}
-                    onChange={handleComment}
-                  />
-            }
-          </div>
+            {thisId && <StarButton setStars={setStars} stars={stars} />}
 
-          <button
-            type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            Submit changes
-          </button>
-        </form>
-        
+            <div className="w-96 h-96 mb-4" id="textarea">
+              <Label htmlFor="comment" />
+              {thisId && (
+                <Textarea
+                  className="my-4 block caret-purple-700"
+                  rows="18"
+                  id="comment"
+                  value={comment}
+                  onChange={handleComment}
+                />
+              )}
+            </div>
+            
+            <div className="flex flex-row justify-end gap-4">
+            <button
+              type="submit"
+              className="btn btn-primary link link-hover tracking-tight"
+            >
+              Post updated review
+            </button>
+
+            {/* link and link-hover from Footer */}
+            <button
+              type="button"
+              className="btn btn-outline btn-primary link link-hover tracking-tight"
+              onClick={() => navigate(-1)}
+            >
+              Cancel
+            </button>
+            </div>
+          </form>
+
         </div>
       </section>
     </div>
-  
-  )
+  );
 }
 
 export default EditReview

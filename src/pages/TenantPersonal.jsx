@@ -2,12 +2,13 @@
 //pull form example from ListingDetails and EditReview pages
 
 import { useState, useEffect, useContext} from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { get, put, axiosDelete } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
+import UserCard from "../components/UserCard";
 
-const TenantPersonal = () => {
+const TenantPersonal = ({handleNotFound}) => {
   const [tenantInfo, setTenantInfo] = useState(null);
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
@@ -87,86 +88,246 @@ const TenantPersonal = () => {
 
   return (
     <>
-      <div>
-        <div className="px-4 sm:px-0">
-          <h3 className="text-base font-semibold leading-7 text-gray-900">
-            Personal Information
-          </h3>
-          <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-            Please feel free to edit!
-          </p>
+    {/* navigation-breadcrumbs */}
+      {user ? (
+      <>
+        <div className="text-sm breadcrumbs mb-4 ml-4 lg:ml-12">
+          <ul>
+            <li>
+              <Link to={`/profile/${user._id}`}>
+                Profile
+            </Link>
+            </li>
+            <li>
+              Edit account
+            </li>
+          </ul>
+        </div>
+      </>):
+      (
+        <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4">
+          {handleNotFound}
+        </h3>
+      )
+      }
+
+      {/* whole page */}
+      <div className="flex flex-col items-center justify-between mt-10 gap-8 min-h-screen lg:flex-row lg:gap-48 lg:items-start">
+
+        {/* left side */}
+        <div className="lg:w-1/3">
+          <UserCard />
         </div>
 
-        {tenantInfo && (
-          <form onSubmit={handleFormSubmit}>
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium leading-6 text-gray-900 sm:col-span-1"
-              >
-                Full Name
-              </label>
-              <div className="mt-1 sm:mt-0 sm:col-span-2">
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={name}
-                  onChange={handleName}
-                  className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
-                />
+        {/* right side */}
+        <div className="flex flex-col justify-center lg:w-2/3">
+          <>
+          {tenantInfo ? (
+            <>
+            <section className="account flex flex-col gap-4 justify-center items-center mb-10">
+                <header>
+                  <h3 className="text-center text-1xl font-semibold tracking-normal text-gray-900 dark:text-white">
+                    My Account
+                    <br />
+                  </h3>
+                  <p className="mt-1 ml-4 max-w-2xl text-sm leading-6 text-gray-500">
+                    Click on the boxes below to edit your account information.
+                  </p>
+                </header>
+            </section>
+              
+            <form onSubmit={handleFormSubmit}>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium leading-6 text-gray-900 sm:col-span-1"
+                >
+                  Full Name
+                </label>
+                <div className="mt-1 sm:mt-0 sm:col-span-2">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={name}
+                    onChange={handleName}
+                    className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900 sm:col-span-1"
-              >
-                Email
-              </label>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900 sm:col-span-1"
+                >
+                  Email
+                </label>
 
-              <div className="mt-1 sm:mt-0 sm:col-span-2">
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={handleEmail}
-                  className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
-                />
+                <div className="mt-1 sm:mt-0 sm:col-span-2">
+                  <input
+                    type="email"
+                    id="username"
+                    name="username"
+                    auto-complete="username"
+                    value={email}
+                    onChange={handleEmail}
+                    className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900 sm:col-span-1"
-              >
-                Password
-              </label>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-900 sm:col-span-1"
+                >
+                  Password
+                </label>
 
-              <div className="mt-1 sm:mt-0 sm:col-span-2">
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={handlePassword}
-                  className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
-                />
+                <div className="mt-1 sm:mt-0 sm:col-span-2">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    auto-complete="current-password"
+                    value={password}
+                    onChange={handlePassword}
+                    className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
+                  />
+                </div>
               </div>
-            </div>
 
-            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit changes</button>
-          </form>
-        )}
-       
-        <button type="submit" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={deleteProfile}>Delete account</button>
+              <div className="flex flex-row justify-end gap-4 mr-4 lg:mr-12">
+                <button
+                  type="submit"
+                  className="btn btn-primary link link-hover tracking-tight"
+                >
+                  Update account
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-outline border-red-700 hover:bg-white hover:border-red-800 hover:text-gray-900 link link-hover tracking-tight"
+                  onClick={deleteProfile}
+                  >
+                  Delete account
+                </button>
+              </div>
+            </form>
+            
+            
+            </>): (
+              <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4">
+                {handleNotFound}
+              </h3>
+            )}
+            </>
+        </div>
       </div>
     </>
-  );
-};
+    )}
+         
+
+// Previous
+//       <div>
+//         <div className="md:w-1/4">
+//           <UserCard />
+//         </div>
+
+//         <div className="md:w-3/4">
+//           <div className="px-4 sm:px-0">
+//             <h3 className="text-base font-semibold leading-7 text-gray-900">
+//               My Account
+//             </h3>
+//             <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+//               Click on the boxes below to edit your account information.
+//             </p>
+//           </div>
+
+//           {tenantInfo && (
+//             <form onSubmit={handleFormSubmit}>
+//               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+//                 <label
+//                   htmlFor="name"
+//                   className="block text-sm font-medium leading-6 text-gray-900 sm:col-span-1"
+//                 >
+//                   Full Name
+//                 </label>
+//                 <div className="mt-1 sm:mt-0 sm:col-span-2">
+//                   <input
+//                     type="text"
+//                     id="name"
+//                     name="name"
+//                     value={name}
+//                     onChange={handleName}
+//                     className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
+//                   />
+//                 </div>
+//               </div>
+
+//               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+//                 <label
+//                   htmlFor="email"
+//                   className="block text-sm font-medium leading-6 text-gray-900 sm:col-span-1"
+//                 >
+//                   Email
+//                 </label>
+
+//                 <div className="mt-1 sm:mt-0 sm:col-span-2">
+//                   <input
+//                     type="email"
+//                     id="username"
+//                     name="username"
+//                     auto-complete="username"
+//                     value={email}
+//                     onChange={handleEmail}
+//                     className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
+//                   />
+//                 </div>
+//               </div>
+
+//               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+//                 <label
+//                   htmlFor="password"
+//                   className="block text-sm font-medium leading-6 text-gray-900 sm:col-span-1"
+//                 >
+//                   Password
+//                 </label>
+
+//                 <div className="mt-1 sm:mt-0 sm:col-span-2">
+//                   <input
+//                     type="password"
+//                     id="password"
+//                     name="password"
+//                     auto-complete="current-password"
+//                     value={password}
+//                     onChange={handlePassword}
+//                     className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
+//                   />
+//                 </div>
+//               </div>
+
+//               <button
+//                 type="submit"
+//                 className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+//               >
+//                 Update account
+//               </button>
+//             </form>
+//           )}
+
+//           <button
+//             type="submit"
+//             className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+//             onClick={deleteProfile}
+//           >
+//             Delete account
+//           </button>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
 
 export default TenantPersonal;
 

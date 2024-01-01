@@ -48,11 +48,11 @@ const LikeButton = ({ singleListing, toggleCard }) => {
 
   return (
     //onclick, call the toggleLike function ('pass it down')
-    <button onClick={() => toggleLike(singleListing)}>
+    <button className="cursor-pointer hover:scale-150 duration-300 translation-all" onClick={() => toggleLike(singleListing)}>
       {returnLike(singleListing) ? (
         <HeartIconSolid
           style={{ color: "red" }}
-          className="mr-1 h-5 w-5"
+          className="mx-2 h-8 w-8"
         />
       ) : (
         // <HeartIconSolid 
@@ -60,8 +60,8 @@ const LikeButton = ({ singleListing, toggleCard }) => {
         //   className="mr-1 h-5 w-5" 
         // />
         <HeartIconOutline 
-          style={{ color: "white" }}
-          className="mr-1 h-5 w-5" 
+          style={{ color: "red" }}
+          className="mx-2 h-8 w-8" 
         />
       )}
     </button>

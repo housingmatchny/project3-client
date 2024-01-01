@@ -7,14 +7,9 @@ import { post } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import { ListingContext } from "../context/listing.context";
 import StarButton from "../components/StarButton";
-// import { deleteReview } from "../services/reviewService";
-import ReviewCard from "../components/ReviewCard";
-import ListingCard from "../components/ListingCard";
 import StarButtonAverage from "../components/StarButtonAverage";
 import { axiosDelete } from "../services/authService";
-import { Rating } from "react-simple-star-rating";
 import { Label, Textarea } from "flowbite-react";
-import Reviews from "./Reviews";
 
 
 
@@ -87,14 +82,14 @@ const ListingDetails = () => {
       {/* when the listing exists */}
       {listing && (
         <>
-          <Link to={`/listings`}>
+          {/* <Link to={`/listings`}>
             <button
               type="button"
               className="ml-7 mb-7 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
             >
               Back to Listings
             </button>
-          </Link>
+          </Link> */}
 
           {/* <ListingCard singleListing={listing}/> */}
 
@@ -124,9 +119,9 @@ const ListingDetails = () => {
                   <StarButtonAverage overallRating={average} />
                 </div>
               </div>
+            <br />
             </section>
 
-            <br />
 
             <section className="listing-details">
               <h3 className="font-semibold text-2xl text-gray-900 dark:text-white">
@@ -134,19 +129,20 @@ const ListingDetails = () => {
               </h3>
               <h4>{`Beds: ${listing.beds} | Baths: ${listing.baths}`}</h4>
               <p>{`${listing.neighborhood} | ${listing.borough} | ${listing.zipCode}`}</p>
-              <p>{listing.phone}</p>
+              <p>Contact: <a href={`tel:${listing.phone}`}>{listing.phone}</a></p>
+              {/* use the tel protocol to create a clickable link that is also accessible to screen readers */}
+            <br />
             </section>
 
-            <br />
 
-            <div>
-              <h3 className="text-2xl mb-4 font-semibold text-gray-900 dark:text-white">
-                {`Community Reviews (${listing.reviews.length})`}
-              </h3>
-            </div>
 
             {/* review form below */}
             <section className="write-review">
+              <div>
+                <h3 className="text-2xl mb-4 font-semibold text-gray-900 dark:text-white">
+                {`Community Reviews (${listing.reviews.length})`}
+                </h3>
+              </div>
               <div className="p-6 mb-10 max-w-lg mx-auto bg-white rounded-xl shadow-lg flex items-start space-x-4 ml-0">
                 <form onSubmit={handleSubmit}>
                   <h2 className="font-semibold text-xl mb-4">
@@ -158,7 +154,7 @@ const ListingDetails = () => {
                     {/* Label for textarea for accessibility */}
                     <Label htmlFor="comment" />
                     <Textarea
-                      className="my-2 block"
+                      className="my-2 block caret-purple-700"
                       id="comment"
                       placeholder="Leave a comment..."
                       required
@@ -170,7 +166,8 @@ const ListingDetails = () => {
 
                   <button
                     type="submit"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    // className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    className="focus:outline-none tracking-tight text-white  bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm justify-start px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
                   >
                     Post review
                   </button>

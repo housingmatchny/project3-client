@@ -7,13 +7,13 @@ import { get } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import ReviewCard from "../components/ReviewCard";
 import ListingCard from "../components/ListingCard";
-import StarButtonAverage from "../components/StarButtonAverage";
-import Reviews from "./Reviews";
+import UserCard from "../components/UserCard";
+
 
 const TenantProfile = () => {
   const [tenantInfo, setTenantInfo] = useState(null);
   const { tenantId } = useParams();
-  const { user, setUser, storeToken } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -21,28 +21,20 @@ const TenantProfile = () => {
     setErrorMessage("You haven't written any reviews.")
   }
 
-  // let reviewOwner = (review) => {
-  //   return review.tenant._id === user._id;
-  // };
+  const handleNotFound = () => {
+    setErrorMessage("User not found.")
+  }
 
   const getTenantInfo = (tenantId) => {
-    // if (tenantId) {
     get(`/profile/${tenantId}`)
       .then((response) => {
         console.log("Tenant info ==>", response.data);
         setTenantInfo(response.data.user);
         setUser(response.data.user);
-        // storeToken(response.data.authToken);
       })
       .catch((err) => {
         console.log(err);
       })
-      // .finally(() => {
-      //   console.log("Tenant info, line 41===>", tenantInfo.reviews)
-      // })
-    // } else {
-    //   console.log("Invalid tenantId");
-    // }
   };
 
   const toggleCard = (i) => {
@@ -54,88 +46,127 @@ const TenantProfile = () => {
     setTenantInfo((prev) => ({...prev, likes: newLikes}))
   }
 
+  const current = new Date()
+  const date = `${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()}`;
+
+
+
   useEffect(() => {
     getTenantInfo(tenantId);
   }, [tenantId]);
 
   return (
-    <div>
-      <h3 className="text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-        Your profile
-      </h3>
-
-      <hr className="my-4"/>
-      <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
-        Your reviews
-      </h3>
-      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 w-1/2 mx-auto">
-        {tenantInfo && (
-          <>
-            {tenantInfo.reviews.length ? (
-              <>
-                {tenantInfo.reviews.map((review) => {
-                  return (
-                    <ReviewCard
-                      key={review?._id}
-                      singleReview={review}
-                      getTenantInfo={getTenantInfo}
-                      // updateReview={updateReview}
-                    />
-                  );
-                })}
-              </>
-            ) : (
-              <p>{handleError}</p>
-            )}
-          </>
-        )}
-      </div>
-      <br />
+    // whole page
+    <div className="flex flex-col items-center justify-between mt-10 gap-8 min-h-screen lg:flex-row lg:gap-20 lg:items-start">
       
-      {/* Likes */}
+      {/* left side */}
+      <div className="lg:w-1/3">
+        <UserCard />
+      </div>
 
-      <hr className="my-4"/>
-      <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
-        Your saved listings
-      </h3>
-      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 w-1/2 mx-auto">
-        {tenantInfo && (
-          <>
-            {tenantInfo.likes.length ? (
+      {/* right side */}
+      <div className="flex flex-col justify-center lg:w-2/3">
+        <>
+        {tenantInfo ? (
+        <section className="milestones flex flex-col gap-4 justify-center items-center mb-10">
+          <header>
+            <h3 className="text-center text-1xl font-semibold tracking-normal text-gray-900 dark:text-white">
+            My Milestones <span aria-label="let's celebrate">🎉</span>
+            <br />
+            </h3>
+            <p className="text-center text-sm tracking-tight text-gray-900 dark:text-white md:mr-6">As of {date}</p>
+          </header>
+          
+          <div className="stats stats-vertical lg:stats-horizontal shadow text-center w-1/2 justify-center">
+
+            <div className="stat">
+              <div className="stat-title">Matches Saved</div>
+              <div className="stat-value">{tenantInfo.likes.length} </div>
+              {/* <div className="stat-desc">Jan 1- Feb 1</div> */}
+            </div>
+
+            <div className="stat">
+              <div className="stat-title">Reviews Written</div>
+              <div className="stat-value">{tenantInfo.reviews.length}</div>
+              {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
+            </div>
+          </div>
+        </section>
+        ):<h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4 mt-20">{handleNotFound}</h3>
+        }
+        </>
+
+        <section className="saved-listings mb-10">
+          <header>
+            <h3 className="text-center text-1xl font-semibold tracking-tight bg-white text-gray-900 dark:text-white">
+              My Saved Matches
+            </h3>
+          </header>
+
+          <div className="flex flex-col w-1/2 lg:flex-row lg:grid-cols-3 lg:w-1/4 gap-8 my-6 justify-center items-center mx-auto">
+            {/* if we take away flex flex-col, the div's flex flex-col will take over, despite the md:flex-row setting */}
+            {tenantInfo && (
               <>
-                {tenantInfo.likes.map((likedListing, i) => {
-                  return (
-                    // <StarButtonAverage overallRating={overallRating} />
-                    <ListingCard
-                      key={likedListing?._id}
-                      singleListing={likedListing}
-                      getTenantInfo={getTenantInfo}
-                      toggleCard={()=>toggleCard(i)}
-                      // onClick={() => toggleCard(i)}
-                    />
-                  );
-                })}
+                {tenantInfo.likes.length ? (
+                  <>
+                    {tenantInfo.likes.map((likedListing, i) => {
+                      return (
+                     
+                        <ListingCard
+                          key={likedListing?._id}
+                          singleListing={likedListing}
+                          getTenantInfo={getTenantInfo}
+                          toggleCard={() => toggleCard(i)}
+                          // onClick={() => toggleCard(i)}
+                        />
+                      );
+                    })}
+                  </>
+                ) : (
+                  <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                    No saved matches yet.  Remember to click on the heart icon to save your matches!  Get started at <a href="/listings">Matches</a>.
+                  </h3>
+                )}
               </>
-            ) : (
-              <p>No saved listings</p>
             )}
-          </>
-        )}
+          </div>
+        </section>
+
+        <section className="reviews mb-10">
+          <header>
+          <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            My Reviews
+          </h3>
+          </header>
+
+          <div className="px-4 py-6 md:grid md:grid-cols-3 md:gap-4 md:px-0 w-1/2 mx-auto">
+            {/* shows as column on iPhone SE b/c the whole div is flex-col */}
+            {tenantInfo && (
+              <>
+                {tenantInfo.reviews.length ? (
+                  <>
+                    {tenantInfo.reviews.map((review) => {
+                      return (
+                        <ReviewCard
+                          key={review?._id}
+                          singleReview={review}
+                          getTenantInfo={getTenantInfo}
+                          // updateReview={updateReview}
+                        />
+                      );
+                    })}
+                  </>
+                ) : (
+                  <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                    {handleError}
+                  </h3>
+                )}
+              </>
+            )}
+          </div>
+        </section>
       </div>
-
-
-
-
-      <div className="mx-auto text-center">
-      <Link to={`/profile/personal/${tenantId}`}>
-        <button
-          type="button"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        >
-          Update personal information
-        </button>
-      </Link>
-      </div>
+      
     </div>
   );
 };

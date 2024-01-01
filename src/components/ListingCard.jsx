@@ -16,31 +16,32 @@ import { getAverageStar } from "../services/getAverageStar";
 //singleListing, updateListing from Listings
 const ListingCard = ({ singleListing, toggleCard }) => {
   return (
-    <div className="card w-96 bg-base-100 shadow-xl relative">
-
-      <div className={`rating gap-1 absolute right-2 top-2 p-4 bg-purple-700`}>
-      <LikeButton singleListing={singleListing} toggleCard={toggleCard} />
-      </div>
+    <div className="card w-auto md:w-96 bg-base-100 shadow-xl hover:scale-105 transition-all duration-200">
 
       <figure>
         <img src={singleListing.imgUrl} alt="Property Image" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{singleListing.streetAddress}</h2>
+        <h2 className="card-title relative">{singleListing.streetAddress}</h2>
         <p>{singleListing.borough}</p>
+        <div className="absolute right-2 p-4">
+          {/* //removed top-2 from above */}
+          <LikeButton singleListing={singleListing} toggleCard={toggleCard} />
+        </div>
+
         <StarButtonAverage overallRating={getAverageStar(singleListing)} />
 
-      <div className="card-action justify-between items-center mt-2">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-          {new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
-            maximumFractionDigits: 0,
-          }).format(singleListing.price)}{" "}
-          per month
-        </h3>
+        <div className="card-actions justify-between items-center mt-2">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            {new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }).format(singleListing.price)}{" "}
+            per month
+          </h3>
 
-        <Link className="rounded-lg bg-purple-700 px-5 py-4 text-center text-sm font-medium text-white hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" to={`/listings/details/${singleListing._id}`} key={singleListing?._id}> See details </Link>
+          <Link className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" to={`/listings/details/${singleListing._id}`} key={singleListing?._id}> See details </Link>
 
       </div>
       </div>

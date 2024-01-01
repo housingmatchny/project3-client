@@ -16,7 +16,8 @@ const StarButton = ({ setStars, stars, read }) => {
   return (
     <div>
       <Rating
-        size={30}
+        size={20}
+        md:size={30}
         emptyStyle={{ display: "flex" }}
         fillStyle={{ display: "-webkit-inline-box" }}
         readonly={read}

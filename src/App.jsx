@@ -31,6 +31,7 @@ function App() {
       <div>
         <Navbar />
 
+    
         <Routes>
           
           <Route path='/' element={<Home />} />
@@ -56,6 +57,7 @@ function App() {
         </Routes>
         
         <Footer />
+        
 
         
       </div>

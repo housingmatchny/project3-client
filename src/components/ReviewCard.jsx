@@ -45,49 +45,60 @@ const ReviewCard = ({ singleReview, getTenantInfo, handleError }) => {
 
 
   return (
-   <div>
-   {singleReview ? (
-    <>
-      <div key={singleReview._id}>
-        <div className="space-y-1 font-medium dark:text-white">
-          
-          { singleReview.listing &&
-            <Link to={`/listings/details/${singleReview.listing._id}`}>
-              <div>
-                <img src={singleReview.listing.imgUrl} />
-                {singleReview.listing.streetAddress}
+    <div>
+      {singleReview ? (
+        <>
+          <div key={singleReview._id}>
+            <div className="space-y-1 font-medium dark:text-white">
+              {singleReview.listing && (
+                <Link to={`/listings/details/${singleReview.listing._id}`}>
+                  <div>
+                    <img src={singleReview.listing.imgUrl} />
+                    {singleReview.listing.streetAddress}
+                  </div>
+                </Link>
+              )}
+
+              <div className="flex flex-wrap items-center mb-1">
+                <StarButton stars={stars} setStars={setStars} read={true} />
               </div>
-            </Link>
-          }
 
-          <div className="flex items-center mb-1">
-            <StarButton stars={stars} setStars={setStars} read={true} />
-          </div>
-          <p className="mb-2 text-gray-500 dark:text-gray-400">{singleReview.comment}</p>
+              <details className="collapse bg-base-200">
+                <summary className="collapse-title text-sm font-sm">
+                  Read more
+                </summary>
+                <div className="collapse-content">
+                  <p className="mb-2 text-gray-500 dark:text-gray-400">
+                    {singleReview.comment}
+                  </p>
+                </div>
+              </details>
 
-          {/* //if the user exists and is the owner of the review */}
-          {user && reviewOwner(singleReview) && (
-            <div className="flex items-center mt-3">
-              <Link to={`/reviews/edit-review/${singleReview._id}`}> 
-                <button className="block mb-5 text-sm font-medium pr-4 text-blue-600 hover:underline dark:text-blue-500">
-                  Edit
-                </button>
-              </Link>
-                   
-              <button
-                className="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500" onClick={() => deleteReview(singleReview._id)}>
-                Delete
-              </button>
+              {/* //if the user exists and is the owner of the review */}
+              {user && reviewOwner(singleReview) && (
+                <div className="flex items-center mt-3">
+                  <Link to={`/reviews/edit-review/${singleReview._id}`}>
+                    <button className="block mb-5 text-sm font-medium pr-4 text-blue-600 hover:underline dark:text-blue-500">
+                      Edit
+                    </button>
+                  </Link>
+
+                  <button
+                    className="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+                    onClick={() => deleteReview(singleReview._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        
-        </div>
-      </div>
-    </>
-) : <p>{handleError}</p>
-}
-</div>
-)}
+          </div>
+        </>
+      ) : (
+        <p>{handleError}</p>
+      )}
+    </div>
+  );}
 
 export default ReviewCard
 

@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 
 const Navbar = () => {
-  const { logOutUser, user } = useContext(AuthContext);
+  const { logOutUser, logOutUserSafe, user } = useContext(AuthContext);
 
   const getToken = () => {
     return localStorage.getItem("authToken");
@@ -17,8 +17,10 @@ const Navbar = () => {
     {!getToken() && (
       <div className="navbar bg-base-100">
         <div className="navbar-start">
+
+        {/* smaller screens */}
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -38,10 +40,10 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <li>
-                <a>Item 1</a>
+              <li className="link link-hover">
+                <a href="/signin">Sign In</a>
               </li>
-              <li>
+              {/* <li>
                 <a>Parent</a>
                 <ul className="p-2">
                   <li>
@@ -54,37 +56,24 @@ const Navbar = () => {
               </li>
               <li>
                 <a>Item 3</a>
-              </li>
+              </li> */}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl" href="/">HousingMatch</a>
+          <a className="btn btn-ghost text-xl" href="/"><span aria-label="company name">HousingMatch</span></a>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
+
+        {/* larger screens */}
+        <div className="navbar-end hidden md:flex">
+            <a className="btn focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" href="/signin">Sign In</a>
+          {/* <ul className="menu menu-horizontal px-1"> */}
+            {/* <li>
               <a>Item 1</a>
             </li>
-            <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
+          {/* </ul> */}
         </div>
-        <div className="navbar-end">
-          <a className="btn bg-purple-700 hover:bg-purple-800 text-white" href="/signin">Sign In</a>
-        </div>
+        {/* <div className="navbar-end">
+          <a className="btn btn-primary" href="/signin">Sign In</a>
+        </div> */}
       </div>
     )}
 
@@ -92,7 +81,7 @@ const Navbar = () => {
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -112,53 +101,50 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <li>
-                <a>Item 1</a>
+              <li className="link link-hover">
+              <Link to={`/profile/${user._id}`}>
+                Profile
+              </Link>
+              </li>
+              <li className="link link-hover">
+              <Link to="/listings">
+                Matches
+              </Link>
               </li>
               <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
+                <button className="link link-hover" onClick={logOutUserSafe}>Exit to Google</button>
               </li>
               <li>
-                <a>Item 3</a>
+                <button className="link link-hover" onClick={logOutUser}>Log Out</button>
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl" href="/">HousingMatch</a>
+          <a className="btn btn-ghost text-xl" href="/listings"><span aria-label="company name">HousingMatch</span></a>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Item 1</a>
+
+        {/* larger screens */}
+        <div className="navbar-end hidden md:flex">
+          <ul className="menu menu-horizontal gap-2">
+            <li className="link link-hover">
+            <Link to={`/profile/${user._id}`}>
+              Profile
+            </Link>
             </li>
-            <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <a>Item 3</a>
+            <li className="link link-hover">
+            <Link to="/listings">
+              Matches
+            </Link>
             </li>
           </ul>
+          <div className="navbar-end flex items-center ml-4 gap-4">
+            <div className="md:tooltip md:tooltip-bottom md:tooltip-error" data-tip="Safety exit">
+              <button className="btn focus:outline-none tracking-tight text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 flex items-center gap-2 link link-hover" onClick={logOutUserSafe}>Exit to Google<ImExit /></button>
+            </div>
+            <button className="btn focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" onClick={logOutUser}>Log Out</button>
+          </div>
+
         </div>
-        <div className="navbar-end">
-          <button className="btn bg-pink rounded-full px-6 text-white flex items-center gap-2" onClick={logOutUser}>Quick Exit <ImExit /></button>
-        </div>
+
       </div>
     )}
 
