@@ -2,4 +2,4 @@
 
 // export const API_URL = "https://project3-hm.adaptable.app"
 
-export const API_URL = "https://housingmatch.netlify.app/"
+export const API_URL = "https://housingmatch.netlify.app"
