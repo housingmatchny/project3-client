@@ -16,6 +16,7 @@ import { getAverageStar } from "../services/getAverageStar";
 //singleListing, updateListing from Listings
 const ListingCard = ({ singleListing, toggleCard }) => {
   return (
+    
     <div className="card w-auto md:w-96 bg-base-100 shadow-xl hover:scale-105 transition-all duration-200">
 
       <figure>
@@ -46,6 +47,7 @@ const ListingCard = ({ singleListing, toggleCard }) => {
       </div>
       </div>
     </div>
+    
 
     // {/* <Card>
     //   <div className="flex flex-col sm:flex-row flex-wrap gap-8 justify-around items-center mt-12">

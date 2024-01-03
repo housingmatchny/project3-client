@@ -2,7 +2,7 @@
 
 import { Link } from "react-router-dom";
 import { ImExit } from "react-icons/im";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/auth.context";
 
 const Navbar = () => {
@@ -12,73 +12,98 @@ const Navbar = () => {
     return localStorage.getItem("authToken");
   };
 
+  // const [isSticky, setSticky] = useState(false)
+
+  //handle sticky navbar when we start to scroll; not needed
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const offset = window.scrollY; //total height you have scrolled on the Y-axis
+  //     if(offset > 0){
+  //       setSticky(true)
+  //     } else{
+  //       setSticky(false)
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => {
+  //     window.addEventListener("scroll", handleScroll);
+  //   }
+  // },[])
+
+
   return (
     <>
     {!getToken() && (
-      <div className="navbar bg-base-100">
-        <div className="navbar-start">
+      
+      <div className="navbar shadow-md bg-base-100 fixed top-0 left-0 right-0 z-10 transition-all duration-300 ease-in-out">
+        {/* <div className={`navbar ${isSticky ? "fixed top-0 left-0 right-0 z-10 shadow-md bg-base-100 transition-all duration-300 ease-in-out" : ""}`}> */}
+          <div className="navbar-start">
 
-        {/* smaller screens */}
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+          {/* smaller screens */}
+            <div className="dropdown">
+              <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
+                <li className="link link-hover">
+                  <a href="/signin">Sign In</a>
+                </li>
+                {/* <li>
+                  <a>Parent</a>
+                  <ul className="p-2">
+                    <li>
+                      <a>Submenu 1</a>
+                    </li>
+                    <li>
+                      <a>Submenu 2</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>Item 3</a>
+                </li> */}
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li className="link link-hover">
-                <a href="/signin">Sign In</a>
-              </li>
-              {/* <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li> */}
-            </ul>
+            <a className="btn btn-ghost text-xl" href="/"><span aria-label="company name">HousingMatch</span></a>
           </div>
-          <a className="btn btn-ghost text-xl" href="/"><span aria-label="company name">HousingMatch</span></a>
-        </div>
 
-        {/* larger screens */}
-        <div className="navbar-end hidden md:flex">
-            <a className="btn focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" href="/signin">Sign In</a>
-          {/* <ul className="menu menu-horizontal px-1"> */}
-            {/* <li>
-              <a>Item 1</a>
-            </li>
-          {/* </ul> */}
+          {/* larger screens */}
+          <div className="navbar-end hidden md:flex">
+              <a className="btn focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" href="/signin">Sign In</a>
+            {/* <ul className="menu menu-horizontal px-1"> */}
+              {/* <li>
+                <a>Item 1</a>
+              </li>
+            {/* </ul> */}
+          </div>
+          {/* <div className="navbar-end">
+            <a className="btn btn-primary" href="/signin">Sign In</a>
+          </div> */}
         </div>
-        {/* <div className="navbar-end">
-          <a className="btn btn-primary" href="/signin">Sign In</a>
-        </div> */}
-      </div>
+      
     )}
 
     {getToken() && user && (
-      <div className="navbar bg-base-100">
+      // <div className={`navbar ${isSticky ? "fixed top-0 left-0 right-0 z-10 shadow-md bg-base-100 transition-all duration-300 ease-in-out" : ""}`}>
+      <div className="navbar shadow-md bg-base-100 fixed top-0 left-0 right-0 z-10 transition-all duration-300 ease-in-out">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">

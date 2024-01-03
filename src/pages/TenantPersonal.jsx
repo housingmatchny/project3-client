@@ -112,7 +112,7 @@ const TenantPersonal = ({handleNotFound}) => {
       }
 
       {/* whole page */}
-      <div className="flex flex-col items-center justify-between mt-10 gap-8 min-h-screen lg:flex-row lg:gap-48 lg:items-start">
+      <div className="flex flex-col items-center lg:justify-between mt-20 md:mt-40 gap-8 min-h-screen lg:flex-row lg:gap-48 lg:items-start">
 
         {/* left side */}
         <div className="lg:w-1/3">

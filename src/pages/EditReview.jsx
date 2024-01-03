@@ -66,7 +66,7 @@ const EditReview = () => {
   };
 
   return (
-    <div>
+    <div className="mt-20 md:mt-40">
       <section className="edit-review flex flex-col ml-7 min-h-screen">
 
         {/* comment outer-box */}

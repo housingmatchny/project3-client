@@ -7,11 +7,17 @@ import BannerUser from "../components/BannerUser";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import SuccessAlert from "../components/SuccessAlert";
 
 const Listings = () => {
   const { listings, setListing, getListings } = useContext(ListingContext);
 
   const slider = React.useRef(null)
+
+  // const handleAlert = () => {
+  //   window.alert(SuccessAlert)
+  // }
+
   
   useEffect(() => {
     if (!listings) {
@@ -28,7 +34,7 @@ const Listings = () => {
     // initialSlide: 0,
       className: "center",
       infinite: true,
-      centerPadding: "60px",
+      // centerPadding: "60px",
       slidesToShow: 1,
       swipeToSlide: true,
       afterChange: function(index) {
@@ -70,46 +76,55 @@ const Listings = () => {
     <div>
       {/* <BannerUser /> */}
 
+      <div className="flex flex-col min-h-screen mt-20 md:mt-40">
+        <section className="header my-10">
+          <div className="subtitle">
+            <h3 className="mx-12 text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              {/* Browse listings & community reviews */}
+              {/* Browse my matched listings & the community's reviews */}
+              My Housing Matches
+            </h3>
+            <h5 className="mx-12 mt-4 text-center text-xl font-medium tracking-tight text-gray-900 dark:text-white">
+              Swipe left to right
+            </h5>
+          </div>
+        </section>
 
-      <div className="flex flex-col min-h-screen">
-        
+        {/* <div className="stack">
+          <div className="text-center border border-base-content card w-36 bg-base-100">
+            <div className="card-body">A</div>
+          </div>
+          <div className="text-center border border-base-content card w-36 bg-base-100">
+            <div className="card-body">B</div>
+          </div>
+          <div className="text-center border border-base-content card w-36 bg-base-100">
+            <div className="card-body">C</div>
+          </div>
+        </div> */}
 
-      <section className="header my-10">
-        <div className="subtitle">
-          <h3 className="mx-12 text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            {/* Browse listings & community reviews */}
-            {/* Browse my matched listings & the community's reviews */}
-            My Housing Matches
-          </h3>
-          <h5 className="mx-12 mt-4 text-center text-xl font-medium tracking-tight text-gray-900 dark:text-white">
-            Swipe left to right
-          </h5>
-        </div>
-      </section>
+        <section className="justify-center items-center mx-12 w-auto mb-20">
+          <Slider {...settings}>
+            {listings && listings.length ? (
+              listings.map((listing) => (
+                <ListingCard key={listing._id} singleListing={listing} />
+              ))
+            ) : (
+              <div className="flex flex-col gap-4 w-52 mt-20">
+                <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4">
+                  Loading...
+                  <br />
+                </h3>
 
-      <section className="items-center mx-12 w-auto mb-20">
-        <Slider {...settings}>
-          {listings && listings.length ? (
-            listings.map((listing) => (
-              <ListingCard key={listing._id} singleListing={listing} />
-            ))
-          ) : (
-            <div className="flex flex-col gap-4 w-52 mt-20">
-              <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4">
-                Loading...
-                <br />
-              </h3>
-
-              {/* skeleton */}
+                {/* skeleton */}
                 {/* <div className="skeleton h-32 w-full"></div> */}
-              <div className="skeleton h-4 w-28 mb-4"></div>
-              <div className="skeleton h-4 w-full mb-4"></div>
-              <div className="skeleton h-4 w-full mb-4"></div>
-            </div>
-          )}
-        </Slider>
-      </section>
-    </div>
+                <div className="skeleton h-4 w-28 mb-4"></div>
+                <div className="skeleton h-4 w-full mb-4"></div>
+                <div className="skeleton h-4 w-full mb-4"></div>
+              </div>
+            )}
+          </Slider>
+        </section>
+      </div>
     </div>
   );
 };

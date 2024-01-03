@@ -77,7 +77,7 @@ const Footer = () => {
           <br />
         </p>
         <p>
-          Illustration from kit8
+          Illustrations from <a href="https://kit8.net/">Kit8</a>
           <br />
         </p>
         <p>Copyright © 2023 HousingMatch. All Rights Reserved.</p>

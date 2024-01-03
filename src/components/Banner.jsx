@@ -11,7 +11,7 @@ const Banner = () => {
 
   return (
     
-    <div className="max-w-screen-2xl container mx-auto x1:px-24 px-4">
+    <div className="max-w-screen-2xl container mx-auto x1:px-24 px-4 mt-10 mt-20 md:mt-40">
       <div className="mx-12 h-auto py-12 flex flex-col md:flex-row justify-between items-center gap-10">
         {/* left-side text */}
         <div className="flex flex-col md:w-1/2">
@@ -52,7 +52,7 @@ const Banner = () => {
 
         {/* right-side image */}
         <div className="md:w-1/2">
-            <img src={apartment} alt="Picture of apartments"></img>
+            <img src={apartment} alt="Illustration of apartments"></img>
             {/* <p className="text-sm">Source: Kit8</p> */}
         </div>
       </div>

@@ -93,7 +93,7 @@ const ListingDetails = () => {
 
           {/* <ListingCard singleListing={listing}/> */}
 
-          <div className="flex flex-col ml-7">
+          <div className="flex flex-col ml-7 mt-20 md:mt-40">
             <section className="listing-summary">
               <img
                 className="object-scale-down h-96 w-auto drop-shadow-md rounded-md"

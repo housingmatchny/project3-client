@@ -2,7 +2,10 @@
 
 const TenantPreferences = () => {
   return (
-    <div>TenantPreferences</div>
+    <div className="mt-20 md:mt-40">
+      {/* to offset navbar */}
+      TenantPreferences
+      </div>
   )
 }
 
