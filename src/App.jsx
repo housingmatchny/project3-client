@@ -44,6 +44,7 @@ function App() {
           </Route>
 
           <Route element={<IsLoggedIn />}>
+            {/* way to protect the route while allowing the listings to render before someone signs in: if logged in, then will render all of the child elements below; otherwise, user will be redirected to sign in */}
 
             <Route path='/listings' element={<Listings />} />
             <Route path='/listings/details/:id' element={ <ListingDetails /> } />

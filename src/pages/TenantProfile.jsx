@@ -16,13 +16,14 @@ const TenantProfile = () => {
   const { user, setUser } = useContext(AuthContext);
 
   const [errorMessage, setErrorMessage] = useState(null)
+  const [erroroundMessage, setErrorFoundMessage] = useState(null)
 
   const handleError = () => {
     setErrorMessage("You haven't written any reviews.")
   }
 
   const handleNotFound = () => {
-    setErrorMessage("User not found.")
+    setErrorFoundMessage("User not found.")
   }
 
   const getTenantInfo = (tenantId) => {
@@ -92,8 +93,8 @@ const TenantProfile = () => {
             </div>
           </div>
         </section>
-        ):<h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4 mt-20">{handleNotFound}</h3>
-        }
+        ):({setErrorFoundMessage} && <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4 mt-20">{handleNotFound}</h3>
+        )}
         </>
 
         <section className="saved-listings mb-10">
@@ -123,9 +124,9 @@ const TenantProfile = () => {
                     })}
                   </>
                 ) : (
-                  <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                    No saved matches yet.  Remember to click on the heart icon to save your matches!  Get started at <a href="/listings">Matches</a>.
-                  </h3>
+                  <h5 className="text-center text-1xl font-normal tracking-tight text-gray-900 dark:text-white">
+                    No saved matches yet.  Click on the heart icon to save your matches!  Get started at <a href="/listings" className="link text-blue-600">Matches</a>.
+                  </h5>
                 )}
               </>
             )}
@@ -156,10 +157,10 @@ const TenantProfile = () => {
                       );
                     })}
                   </>
-                ) : (
-                  <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                ) : ({errorMessage} &&
+                  <h5 className="text-center text-1xl font-normal tracking-tight text-gray-900 dark:text-white">
                     {handleError}
-                  </h3>
+                  </h5>
                 )}
               </>
             )}

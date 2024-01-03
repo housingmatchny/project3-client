@@ -93,7 +93,7 @@ const ListingDetails = () => {
 
           {/* <ListingCard singleListing={listing}/> */}
 
-          <div className="flex flex-col ml-7 mt-20 md:mt-40">
+          <div className="flex flex-col gap-8 ml-7 mt-20 md:mt-40">
             <section className="listing-summary">
               <img
                 className="object-scale-down h-96 w-auto drop-shadow-md rounded-md"
@@ -101,7 +101,7 @@ const ListingDetails = () => {
                 alt="property image"
               />
 
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              <h5 className="mt-8 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                 <p>{listing.streetAddress}</p>
               </h5>
               <p>{listing.borough}</p>
@@ -184,7 +184,7 @@ const ListingDetails = () => {
             {user && listing && listing.reviews.length ? (
               <>
                 {listing.reviews.map((review) => (
-                  <article key={review._id} className="mb-2 p-4 max-w-lg">
+                  <article key={review._id} className="p-4 max-w-lg">
                     <div className="space-y-1 font-medium dark:text-white">
                       <p>{review.tenant.name}</p>
                       <div className="flex items-center mb-1">

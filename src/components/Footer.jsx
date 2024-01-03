@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-base-200 text-base-content justify-center sm:gap-24 sm:flex sm:grid-flow-col">
+    <footer className="footer p-10 bg-base-200 text-base-content justify-between min-w-screen sm:gap-24 sm:grid sm:grid-flow-col">
       <div className="mt-2">
         <p className="footer-title text-red-700">
           Disclaimer: This is a test site.
@@ -77,7 +77,7 @@ const Footer = () => {
           <br />
         </p>
         <p>
-          Illustrations from <a href="https://kit8.net/">Kit8</a>
+          Illustrations from <a href="https://kit8.net/" className="link">Kit8</a>
           <br />
         </p>
         <p>Copyright © 2023 HousingMatch. All Rights Reserved.</p>

@@ -11,8 +11,8 @@ const Banner = () => {
 
   return (
     
-    <div className="max-w-screen-2xl container mx-auto x1:px-24 px-4 mt-10 mt-20 md:mt-40">
-      <div className="mx-12 h-auto py-12 flex flex-col md:flex-row justify-between items-center gap-10">
+    <div className="max-w-screen-2xl container mx-auto x1:px-24 px-4 mt-20 md:mt-40">
+      <div className="mx-12 h-auto py-12 flex flex-col justify-start items-center gap-10 md:flex-row md:justify-between">
         {/* left-side text */}
         <div className="flex flex-col md:w-1/2">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">
@@ -43,7 +43,7 @@ const Banner = () => {
 
           
           <button
-            className="btn w-48 focus:outline-none tracking-tight text-white  bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm justify-start px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+            className="btn w-48 focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
             onClick={handleSubmit}
           >
             Get started for free <IoIosArrowForward />
