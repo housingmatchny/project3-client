@@ -11,7 +11,7 @@ const UserCard = ({handleNotFound}) => {
     <>
     {user ? (
     <section className="user-profile-card">
-      <div class="grid grid-cols-1 px-20 lg:ml-12 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="grid grid-cols-1 px-20 lg:ml-12 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
         <div className="flex flex-col items-center gap-4 pb-10">
            
@@ -32,7 +32,7 @@ const UserCard = ({handleNotFound}) => {
               <Link to={`/profile/${user._id}`}>
                 <button
                   type="button"
-                  className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                  className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover"
                 >
                   Overview
                 </button>
@@ -45,7 +45,7 @@ const UserCard = ({handleNotFound}) => {
               <Link to={`/profile/personal/${tenantId}`}>
                 <button
                   type="button"
-                  className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                  className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover"
                 >
                   Edit account
                 </button>

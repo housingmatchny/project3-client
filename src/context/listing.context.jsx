@@ -102,8 +102,10 @@ function ListingProviderWrapper({ children }) {
   // };
 
   let reviewOwner = (review) => {
-    return review.tenant._id === user._id;
-  }; //returns true or false whether the tenant id of the review object matches the user id (i.e., whether this person owns the review)
+    if (review.tenant && review.tenant._id === user._id) {
+      return true}
+    return false
+  }; //returns true or false whether the tenant id of the review object matches the user id (i.e., whether this person owns the review). also first checks whether review.tenant is truthy (208 E 122nd, 3A was falsy)
 
   //getListings while the Context Provider mounts
   useEffect(() => {

@@ -93,7 +93,7 @@ const TenantProfile = () => {
             </div>
           </div>
         </section>
-        ):({setErrorFoundMessage} && <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4 mt-20">{handleNotFound}</h3>
+        ):({setErrorFoundMessage} && <h5 className="text-center text-1xl font-normal tracking-tight text-gray-900 dark:text-white">{handleNotFound}</h5>
         )}
         </>
 

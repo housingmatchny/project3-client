@@ -25,7 +25,7 @@ const LikeButton = ({ singleListing, toggleCard }) => {
 
   const toggleLike = (listing) => {
 
-    console.log("Toggling", listing,user)
+    console.log("Toggling", listing, user)
 
     if (!returnLike(listing)) {
       // if false, then add a like
@@ -86,6 +86,8 @@ const LikeButton = ({ singleListing, toggleCard }) => {
 }
 
 export default LikeButton
+
+
 
 
  {/* {showModal && (

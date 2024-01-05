@@ -33,14 +33,17 @@ const Listings = () => {
     // slidesToScroll: 3,
     // initialSlide: 0,
       className: "center",
+      centerMode: true,
       infinite: true,
-      // centerPadding: "60px",
+      centerPadding: "60px",
       slidesToShow: 1,
       swipeToSlide: true,
+      speed:500,
       afterChange: function(index) {
         console.log(
           `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
         )},
+
     //   responsive: [
     //   {
     //     //laptop (lg)=1024;desktop (max-xl)=1280
@@ -76,7 +79,7 @@ const Listings = () => {
     <div>
       {/* <BannerUser /> */}
 
-      <div className="flex flex-col min-h-screen mt-20 md:mt-40">
+      <div className="flex flex-col justify-center min-h-screen mt-20 md:mt-40">
         <section className="header my-10">
           <div className="subtitle">
             <h3 className="mx-12 text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
@@ -101,14 +104,16 @@ const Listings = () => {
             <div className="card-body">C</div>
           </div>
         </div> */}
-
-        <section className="justify-center items-center mx-12 w-auto mb-20">
-          <Slider {...settings}>
+      
+      {/* <div className="flex justify-center">: slider does not load in flex b/c there is already a flex above*/}
+        <section className="lg:transform translate-x-1/3 w-auto mb-20">
+          
             {listings && listings.length ? (
-              listings.map((listing) => (
+              <Slider {...settings}>
+              {listings.map((listing) => (
                 <ListingCard key={listing._id} singleListing={listing} />
-              ))
-            ) : (
+              ))}
+              </Slider>) : (
               <div className="flex flex-col gap-4 w-52 mt-20">
                 <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4">
                   Loading...
@@ -122,10 +127,11 @@ const Listings = () => {
                 <div className="skeleton h-4 w-full mb-4"></div>
               </div>
             )}
-          </Slider>
         </section>
+      {/* </div> */}
       </div>
-    </div>
+      </div>
+  
   );
 };
 

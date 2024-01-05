@@ -10,10 +10,11 @@ import StarButton from "../components/StarButton";
 import StarButtonAverage from "../components/StarButtonAverage";
 import { axiosDelete } from "../services/authService";
 import { Label, Textarea } from "flowbite-react";
+import LikeButton from "../components/LikeButton";
 
 
 
-const ListingDetails = () => {
+const ListingDetails = ({singleListing, toggleCard}) => {
 
   const [comment, setComment] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,9 +25,13 @@ const ListingDetails = () => {
 
   const { user } = useContext(AuthContext); //allows us to access the values of AuthContext; in this case, we destructure user out of AuthContext
 
-  const { listings, getListing, listing, average, updateListing } = useContext(ListingContext)
+  const { listings, getListing, listing, average, updateListing, reviewOwner } = useContext(ListingContext)
 
   const navigate = useNavigate(); //allows us to navigate
+
+  const handleBack = (e) => {
+    navigate(-1)
+  }
 
   //triggers new review, inclusive of comment and stars
   const handleSubmit = (e) => {
@@ -56,9 +61,11 @@ const ListingDetails = () => {
     setComment(e.target.value);
   };
 
-  let reviewOwner = (review) => {
-    return review.tenant._id === user._id;
-  }; //returns true or false whether the tenant id of the review object matches the user id (i.e., whether this person owns the review)
+  // let reviewOwner = (review) => {
+  //   if (review.tenant && review.tenant._id === user._id) {
+  //     return true}
+  //   return false
+  // }; 
 
   const deleteReview = (reviewId) => {
     // Make a DELETE request to delete the project
@@ -82,18 +89,20 @@ const ListingDetails = () => {
       {/* when the listing exists */}
       {listing && (
         <>
-          {/* <Link to={`/listings`}>
+          {/* <Link to={`/listings`}> */}
+          {/* </Link> */}
+
+          <div className="flex flex-col gap-8 ml-7 mt-20 md:mt-40 relative">
+            <div>
             <button
-              type="button"
-              className="ml-7 mb-7 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-            >
-              Back to Listings
-            </button>
-          </Link> */}
+                type="button"
+                onClick={()=>handleBack()}
+                className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover"
+              >
+                Back to Listings
+              </button>
+            </div>
 
-          {/* <ListingCard singleListing={listing}/> */}
-
-          <div className="flex flex-col gap-8 ml-7 mt-20 md:mt-40">
             <section className="listing-summary">
               <img
                 className="object-scale-down h-96 w-auto drop-shadow-md rounded-md"
@@ -101,26 +110,31 @@ const ListingDetails = () => {
                 alt="property image"
               />
 
-              <h5 className="mt-8 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                <p>{listing.streetAddress}</p>
-              </h5>
-              <p>{listing.borough}</p>
-
-              <div className="flex space-x-20">
-                <div className="flex flex-col">
-                  <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                      maximumFractionDigits: 0,
-                    }).format(listing.price)}{" "}
-                    per month
-                  </h3>
-                  <StarButtonAverage overallRating={average} />
+              <div className="relative w-auto sm:w-80">
+                <h5 className="mt-8 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{listing.streetAddress}</h5>
+                <p>{listing.borough}</p>
+                <div className="absolute top-2 right-2">
+                  {/* //removed top-2 from above */}
+                  <LikeButton singleListing={listing} toggleCard={toggleCard}/>
                 </div>
               </div>
-            <br />
-            </section>
+
+                <div className="flex space-x-20">
+                  <div className="flex flex-col">
+                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
+                      {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                        maximumFractionDigits: 0,
+                      }).format(listing.price)}{" "}
+                      per month
+                    </h3>
+                    <StarButtonAverage overallRating={average} />
+                  </div>
+                </div>
+              <br />
+              </section>
+          
 
 
             <section className="listing-details">
@@ -186,7 +200,7 @@ const ListingDetails = () => {
                 {listing.reviews.map((review) => (
                   <article key={review._id} className="p-4 max-w-lg">
                     <div className="space-y-1 font-medium dark:text-white">
-                      <p>{review.tenant.name}</p>
+                      {review.tenant && <p>{review.tenant.name}</p>}
                       <div className="flex items-center mb-1">
                         <StarButton stars={review.stars} read={true}/>
                       </div>
@@ -215,7 +229,7 @@ const ListingDetails = () => {
                 ))}
               </>
             ) : (
-              <p></p>
+              <h5 className="text-center text-1xl font-normal tracking-tight text-gray-900 dark:text-white">No reviews yet. Be the first to post a review and help the community!</h5>
             )}
           </div>
         </>

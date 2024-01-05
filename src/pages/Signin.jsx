@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth.context";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { post } from "../services/authService";
+import { get, post } from "../services/authService";
 
 
 const Signin = () => {

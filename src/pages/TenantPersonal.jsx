@@ -88,32 +88,37 @@ const TenantPersonal = ({handleNotFound}) => {
 
   return (
     <>
+    {/* whole page */}
+    {/* <div className="flex flex-col"> */}
+
     {/* navigation-breadcrumbs */}
-      {user ? (
+    {/* <section className="header">
+    {user ? (
       <>
-        <div className="text-sm breadcrumbs mb-4 ml-4 lg:ml-12">
-          <ul>
-            <li>
-              <Link to={`/profile/${user._id}`}>
-                Profile
-            </Link>
-            </li>
-            <li>
-              Edit account
-            </li>
-          </ul>
-        </div>
-      </>):
-      (
-        <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4">
-          {handleNotFound}
-        </h3>
-      )
-      }
+       
+          <div className="text-sm breadcrumbs mt-20 md:mt-40 mb-4 ml-4 lg:ml-12 z-10">
+            <ul>
+              <li>
+                <Link to={`/profile/${user._id}`}>
+                  Profile
+              </Link>
+              </li>
+              <li>
+                Edit account
+              </li>
+            </ul>
+          </div>
+      </>
+      ):(
+          <h3 className="text-center text-1xl font-semibold tracking-tight text-gray-900 dark:text-white mb-4">
+            {handleNotFound}
+          </h3>
+        )
+    }
+    </section> */}
 
-      {/* whole page */}
-      <div className="flex flex-col items-center lg:justify-between mt-20 md:mt-40 gap-8 min-h-screen lg:flex-row lg:gap-48 lg:items-start">
-
+    {/* input parts */}
+    <div className="flex flex-col items-center mt-20 md:mt-40 lg:justify-between gap-8 min-h-screen lg:flex-row lg:gap-48 lg:items-start">
         {/* left side */}
         <div className="lg:w-1/3">
           <UserCard />
@@ -223,9 +228,15 @@ const TenantPersonal = ({handleNotFound}) => {
             )}
             </>
         </div>
-      </div>
-    </>
-    )}
+    </div>
+    
+   {/* </div> */}
+   </>
+  
+  )}
+
+    
+
          
 
 // Previous
