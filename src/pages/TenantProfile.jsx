@@ -58,10 +58,10 @@ const TenantProfile = () => {
 
   return (
     // whole page
-    <div className="flex flex-col items-center lg:justify-between mt-20 md:mt-40 gap-8 min-h-screen lg:flex-row lg:gap-20 lg:items-start">
+    <div className="flex flex-col items-center mt-20 gap-10 min-h-screen lg:flex-row lg:justify-between lg:gap-20 lg:items-start">
       
       {/* left side */}
-      <div className="lg:w-1/3">
+      <div className="lg:w-1/3 mr-10">
         <UserCard />
       </div>
 
@@ -104,7 +104,8 @@ const TenantProfile = () => {
             </h3>
           </header>
 
-          <div className="flex flex-col w-1/2 lg:flex-row lg:grid-cols-3 lg:w-1/4 gap-8 my-6 justify-center items-center mx-auto">
+          <div className="flex flex-col w-1/2 lg:grid-cols-3 lg:w-1/4 lg:h-1/2 gap-8 my-6 justify-center items-center mx-auto">
+          {/* <div className="px-4 py-6 gap-8 md:grid md:grid-flow-row md:grid-cols-2 md:gap-80 md:px-0 md:w-1/2 md:justify-center md:items-center mx-auto"> */}
             {/* if we take away flex flex-col, the div's flex flex-col will take over, despite the md:flex-row setting */}
             {tenantInfo && (
               <>

@@ -79,7 +79,7 @@ const Listings = () => {
     <div>
       {/* <BannerUser /> */}
 
-      <div className="flex flex-col justify-center min-h-screen mt-20 md:mt-40">
+      <div className="flex flex-col justify-center min-h-fit mt-20">
         <section className="header my-10">
           <div className="subtitle">
             <h3 className="mx-12 text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">

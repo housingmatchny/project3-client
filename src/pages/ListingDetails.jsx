@@ -92,7 +92,7 @@ const ListingDetails = ({singleListing, toggleCard}) => {
           {/* <Link to={`/listings`}> */}
           {/* </Link> */}
 
-          <div className="flex flex-col gap-8 ml-7 mt-20 md:mt-40 relative">
+          <div className="flex flex-col gap-8 ml-7 mt-20 relative">
             <div>
             <button
                 type="button"
@@ -229,7 +229,7 @@ const ListingDetails = ({singleListing, toggleCard}) => {
                 ))}
               </>
             ) : (
-              <h5 className="text-center text-1xl font-normal tracking-tight text-gray-900 dark:text-white">No reviews yet. Be the first to post a review and help the community!</h5>
+              <h5 className="text-left text-1xl font-normal tracking-tight text-gray-900 dark:text-white mb-4">No reviews yet. Be the first to post a review and help the community!</h5>
             )}
           </div>
         </>

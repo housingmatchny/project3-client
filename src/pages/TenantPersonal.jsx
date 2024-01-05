@@ -118,7 +118,7 @@ const TenantPersonal = ({handleNotFound}) => {
     </section> */}
 
     {/* input parts */}
-    <div className="flex flex-col items-center mt-20 md:mt-40 lg:justify-between gap-8 min-h-screen lg:flex-row lg:gap-48 lg:items-start">
+    <div className="flex flex-col items-center mt-20 lg:justify-between gap-8 min-h-screen lg:flex-row lg:gap-48 lg:items-start">
         {/* left side */}
         <div className="lg:w-1/3">
           <UserCard />
