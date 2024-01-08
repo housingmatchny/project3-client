@@ -69,6 +69,10 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li className="link link-hover">
+                  <Link to="/signup">Sign Up</Link>
+                </li>
+                
+                <li className="link link-hover">
                   <Link to="/signin">Sign In</Link>
                 </li>
                 {/* <li>
@@ -93,7 +97,8 @@ const Navbar = () => {
           {/* larger screens */}
           <div className="navbar-end hidden md:flex gap-4">
               <Link to="/signin" className="shadow bg-base-100 rounded-lg font-medium text-sm px-5 py-2.5 mb-2 link link-hover tracking-tight">Sign In</Link>
-              <Link to="/signin" className="focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover">Get Started</Link>
+              
+              <Link to="/signup" className="focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover">Get Started</Link>
             {/* <ul className="menu menu-horizontal px-1"> */}
               {/* <li>
                 <a>Item 1</a>
