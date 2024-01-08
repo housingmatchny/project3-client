@@ -132,8 +132,7 @@ const Signup = () => {
                     to="/signin"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
-                    {" "}
-                    Sign in
+                    <span className="text-purple-700"> Sign in</span>   
                   </Link>
                 </p>
               </form>

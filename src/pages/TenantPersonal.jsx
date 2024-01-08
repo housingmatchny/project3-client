@@ -149,7 +149,7 @@ const TenantPersonal = ({handleNotFound}) => {
                 >
                   Full Name
                 </label>
-                <div className="mt-1 sm:mt-0 sm:col-span-2">
+                <div className="mt-1 col-span-2 lg:col-span-3">
                   <input
                     type="text"
                     id="name"
@@ -169,7 +169,7 @@ const TenantPersonal = ({handleNotFound}) => {
                   Email
                 </label>
 
-                <div className="mt-1 sm:mt-0 sm:col-span-2">
+                <div className="mt-1 col-span-2 lg:col-span-3">
                   <input
                     type="email"
                     id="username"
@@ -190,7 +190,7 @@ const TenantPersonal = ({handleNotFound}) => {
                   Password
                 </label>
 
-                <div className="mt-1 sm:mt-0 sm:col-span-2">
+                <div className="mt-1 col-span-2 lg:col-span-3">
                   <input
                     type="password"
                     id="password"
@@ -206,13 +206,13 @@ const TenantPersonal = ({handleNotFound}) => {
               <div className="flex flex-row justify-end gap-4 mr-4 lg:mr-12">
                 <button
                   type="submit"
-                  className="btn btn-primary link link-hover tracking-tight"
+                  className="focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover"
                 >
                   Update account
                 </button>
                 <button
                   type="submit"
-                  className="btn btn-outline border-red-700 hover:bg-white hover:border-red-800 hover:text-gray-900 link link-hover tracking-tight"
+                  className="btn btn-outline border-red-600 hover:bg-red-600 hover:border-red-600 hover:text-white px-5 py-2.5 mb-2 link link-hover tracking-tight"
                   onClick={deleteProfile}
                   >
                   Delete account

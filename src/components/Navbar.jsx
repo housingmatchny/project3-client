@@ -42,7 +42,7 @@ const Navbar = () => {
     <>
     {!getToken() && (
       
-      <div className="navbar shadow-md bg-base-100 fixed top-0 left-0 right-0 z-10 transition-all duration-300 ease-in-out">
+      <div className="navbar shadow-sm bg-base-100 fixed top-0 left-0 right-0 z-10 transition-all duration-300 ease-in-out">
         {/* <div className={`navbar ${isSticky ? "fixed top-0 left-0 right-0 z-10 shadow-md bg-base-100 transition-all duration-300 ease-in-out" : ""}`}> */}
           <div className="navbar-start">
 
@@ -69,7 +69,7 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li className="link link-hover">
-                  <button onClick={handleSubmit}>Sign In</button>
+                  <Link to="/signin">Sign In</Link>
                 </li>
                 {/* <li>
                   <a>Parent</a>
@@ -87,12 +87,13 @@ const Navbar = () => {
                 </li> */}
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl" href="/"><span aria-label="company name">HousingMatch</span></a>
+            <Link to="/" className="btn btn-ghost text-xl"><span aria-label="company name">HousingMatch</span></Link>
           </div>
 
           {/* larger screens */}
-          <div className="navbar-end hidden md:flex">
-              <button className="focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" onClick={handleSubmit}>Sign In</button>
+          <div className="navbar-end hidden md:flex gap-4">
+              <Link to="/signin" className="shadow bg-base-100 rounded-lg font-medium text-sm px-5 py-2.5 mb-2 link link-hover tracking-tight">Sign In</Link>
+              <Link to="/signin" className="focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover">Get Started</Link>
             {/* <ul className="menu menu-horizontal px-1"> */}
               {/* <li>
                 <a>Item 1</a>
@@ -108,7 +109,7 @@ const Navbar = () => {
 
     {getToken() && user && (
       // <div className={`navbar ${isSticky ? "fixed top-0 left-0 right-0 z-10 shadow-md bg-base-100 transition-all duration-300 ease-in-out" : ""}`}>
-      <div className="navbar shadow-md bg-base-100 fixed top-0 left-0 right-0 z-10 transition-all duration-300 ease-in-out">
+      <div className="navbar shadow-sm bg-base-100 fixed top-0 left-0 right-0 z-10 transition-all duration-300 ease-in-out">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
@@ -149,7 +150,7 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl" href="/listings"><span aria-label="company name">HousingMatch</span></a>
+          <Link to="/listings" className="btn btn-ghost text-xl"><span aria-label="company name">HousingMatch</span></Link>
         </div>
 
         {/* larger screens */}
