@@ -126,7 +126,7 @@ const TenantProfile = () => {
                   </>
                 ) : (
                   <h5 className="text-center text-1xl font-normal tracking-tight text-gray-900 dark:text-white">
-                    No saved matches yet.  Click on the heart icon to save your matches!  Get started at <a href="/listings" className="link text-blue-600">Matches</a>.
+                    No saved matches yet.  Click on the heart icon to save your matches!  Get started at <Link to="/listings" className="link text-blue-600">Matches</Link>.
                   </h5>
                 )}
               </>

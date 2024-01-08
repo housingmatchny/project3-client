@@ -1,15 +1,20 @@
 //navbar
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ImExit } from "react-icons/im";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/auth.context";
 
 const Navbar = () => {
   const { logOutUser, logOutUserSafe, user } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   const getToken = () => {
     return localStorage.getItem("authToken");
+  };
+
+  const handleSubmit = () => {
+    navigate("/signin");
   };
 
   // const [isSticky, setSticky] = useState(false)
@@ -64,7 +69,7 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li className="link link-hover">
-                  <a href="/signin">Sign In</a>
+                  <button onClick={handleSubmit}>Sign In</button>
                 </li>
                 {/* <li>
                   <a>Parent</a>
@@ -87,7 +92,7 @@ const Navbar = () => {
 
           {/* larger screens */}
           <div className="navbar-end hidden md:flex">
-              <a className="focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" href="/signin">Sign In</a>
+              <button className="focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" onClick={handleSubmit}>Sign In</button>
             {/* <ul className="menu menu-horizontal px-1"> */}
               {/* <li>
                 <a>Item 1</a>
