@@ -35,7 +35,7 @@ const Listings = () => {
       className: "center",
       centerMode: true,
       infinite: true,
-      centerPadding: "60px",
+      // centerPadding: "60px",
       slidesToShow: 1,
       swipeToSlide: true,
       speed:500,
@@ -106,7 +106,7 @@ const Listings = () => {
         </div> */}
       
       {/* <div className="flex justify-center">: slider does not load in flex b/c there is already a flex above*/}
-        <section className="lg:transform translate-x-1/3 w-auto mb-20">
+        <section className="lg:transform translate-x-96 w-auto mb-20">
           
             {listings && listings.length ? (
               <Slider {...settings}>

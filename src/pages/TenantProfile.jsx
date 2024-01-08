@@ -58,7 +58,7 @@ const TenantProfile = () => {
 
   return (
     // whole page
-    <div className="flex flex-col items-center mt-20 gap-10 min-h-screen lg:flex-row lg:justify-between lg:gap-20 lg:items-start">
+    <div className="flex flex-col items-center mt-20 lg:mt-40 gap-10 min-h-screen lg:flex-row lg:justify-between lg:gap-20 lg:items-start">
       
       {/* left side */}
       <div className="lg:w-1/3 mr-10">
@@ -69,30 +69,30 @@ const TenantProfile = () => {
       <div className="flex flex-col justify-center lg:w-2/3">
         <>
         {tenantInfo ? (
-        <section className="milestones flex flex-col gap-4 justify-center items-center mb-10">
-          <header>
-            <h3 className="text-center text-1xl font-semibold tracking-normal text-gray-900 dark:text-white">
-            My Milestones <span aria-label="let's celebrate">🎉</span>
-            <br />
-            </h3>
-            <p className="text-center text-sm tracking-tight text-gray-900 dark:text-white md:mr-6">As of {date}</p>
-          </header>
-          
-          <div className="stats stats-vertical lg:stats-horizontal shadow text-center w-1/2 justify-center">
+          <section className="milestones flex flex-col gap-4 justify-center items-center mb-10">
+            <header>
+              <h3 className="text-center text-1xl font-semibold tracking-normal text-gray-900 dark:text-white">
+              My Milestones <span aria-label="let's celebrate">🎉</span>
+              <br />
+              </h3>
+              <p className="text-center text-sm tracking-tight text-gray-900 dark:text-white md:mr-6">As of {date}</p>
+            </header>
+            
+            <div className="stats stats-vertical lg:stats-horizontal shadow text-center w-1/2 justify-center">
 
-            <div className="stat">
-              <div className="stat-title">Matches Saved</div>
-              <div className="stat-value">{tenantInfo.likes.length} </div>
-              {/* <div className="stat-desc">Jan 1- Feb 1</div> */}
-            </div>
+              <div className="stat">
+                <div className="stat-title">Matches Saved</div>
+                <div className="stat-value">{tenantInfo.likes.length} </div>
+                {/* <div className="stat-desc">Jan 1- Feb 1</div> */}
+              </div>
 
-            <div className="stat">
-              <div className="stat-title">Reviews Written</div>
-              <div className="stat-value">{tenantInfo.reviews.length}</div>
-              {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
+              <div className="stat">
+                <div className="stat-title">Reviews Written</div>
+                <div className="stat-value">{tenantInfo.reviews.length}</div>
+                {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
         ):({setErrorFoundMessage} && <h5 className="text-center text-1xl font-normal tracking-tight text-gray-900 dark:text-white">{handleNotFound}</h5>
         )}
         </>

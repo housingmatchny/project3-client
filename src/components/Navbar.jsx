@@ -87,7 +87,7 @@ const Navbar = () => {
 
           {/* larger screens */}
           <div className="navbar-end hidden md:flex">
-              <a className="btn focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" href="/signin">Sign In</a>
+              <a className="focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" href="/signin">Sign In</a>
             {/* <ul className="menu menu-horizontal px-1"> */}
               {/* <li>
                 <a>Item 1</a>

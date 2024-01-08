@@ -11,7 +11,8 @@ const Banner = () => {
 
   return (
     
-    <div className="max-w-screen-2xl container mx-auto x1:px-24 px-4 mt-20 md:mt-40">
+    // <div className="max-w-screen-2xl container mx-auto x1:px-24 px-4 mt-20 md:mt-40">
+    <div className="h-screen w-screen mx-auto mt-20">
       <div className="mx-12 h-auto py-12 flex flex-col justify-start items-center gap-10 md:flex-row md:justify-between">
         {/* left-side text */}
         <div className="flex flex-col md:w-1/2">
