@@ -79,13 +79,14 @@ const Listings = () => {
     <div>
       {/* <BannerUser /> */}
 
-      <div className="flex flex-col justify-center min-h-fit mt-20">
+      <div className="flex flex-col justify-center h-screen mt-20">
         <section className="header my-10">
           <div className="subtitle">
-            <h3 className="mx-12 text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            <h3 className="mt-24 mx-12 text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
               {/* Browse listings & community reviews */}
               {/* Browse my matched listings & the community's reviews */}
-              My Housing Matches
+              {/* My housing matches */}
+              Recommended for you
             </h3>
             <h5 className="mx-12 mt-4 text-center text-xl font-medium tracking-tight text-gray-900 dark:text-white">
               Swipe left to right

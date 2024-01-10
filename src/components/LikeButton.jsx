@@ -6,6 +6,7 @@ import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline'
 import { AuthContext } from "../context/auth.context"
 import { ListingContext } from "../context/listing.context"
 import { get } from "../services/authService"
+import {motion} from "framer-motion"
 
 //check npm package for the heroicons, not the heroicons site
 
@@ -56,8 +57,16 @@ const LikeButton = ({ singleListing, toggleCard }) => {
   return (
     //onclick, call the toggleLike function ('pass it down')
     <>
-    <button
+    {/* <button
         className="cursor-pointer hover:scale-150 duration-300 translation-all"
+        onClick={() => 
+          {toggleLike(singleListing);
+          // toggleSaveModal()
+          }}
+      > */}
+    <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         onClick={() => 
           {toggleLike(singleListing);
           // toggleSaveModal()
@@ -79,7 +88,7 @@ const LikeButton = ({ singleListing, toggleCard }) => {
           className="mx-2 h-8 w-8" 
         />
       )}
-    </button>
+    </motion.button>
 
   </>
   );

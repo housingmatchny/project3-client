@@ -8,6 +8,7 @@ import { AuthContext } from "../context/auth.context";
 import ReviewCard from "../components/ReviewCard";
 import ListingCard from "../components/ListingCard";
 import UserCard from "../components/UserCard";
+import CountUp from 'react-countup'
 
 
 const TenantProfile = () => {
@@ -58,7 +59,7 @@ const TenantProfile = () => {
 
   return (
     // whole page
-    <div className="flex flex-col items-center mt-20 lg:mt-40 gap-10 min-h-screen lg:flex-row lg:justify-between lg:gap-20 lg:items-start">
+    <div className="flex flex-col items-center mt-24 lg:mt-40 gap-10 min-h-screen lg:flex-row lg:justify-between lg:gap-20 lg:items-start">
       
       {/* left side */}
       <div className="lg:w-1/3 mr-10">
@@ -81,14 +82,19 @@ const TenantProfile = () => {
             <div className="stats stats-vertical lg:stats-horizontal shadow text-center w-1/2 justify-center">
 
               <div className="stat">
-                <div className="stat-title">Matches Saved</div>
-                <div className="stat-value">{tenantInfo.likes.length} </div>
+                <div className="stat-title">Matches Liked</div>
+                <div className="stat-value">
+                  <CountUp end={tenantInfo.likes.length} delay={0.2} />
+                </div>
                 {/* <div className="stat-desc">Jan 1- Feb 1</div> */}
               </div>
 
               <div className="stat">
                 <div className="stat-title">Reviews Written</div>
-                <div className="stat-value">{tenantInfo.reviews.length}</div>
+                <div className="stat-value">
+                  <CountUp end={tenantInfo.reviews.length} delay={0.2} />
+                </div>  
+          
                 {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
               </div>
             </div>
@@ -97,10 +103,10 @@ const TenantProfile = () => {
         )}
         </>
 
-        <section className="saved-listings mb-10">
+        <section className="liked-listings mb-10">
           <header>
             <h3 className="text-center text-1xl font-semibold tracking-tight bg-white text-gray-900 dark:text-white">
-              My Saved Matches
+              My Liked Matches
             </h3>
           </header>
 
@@ -126,7 +132,7 @@ const TenantProfile = () => {
                   </>
                 ) : (
                   <h5 className="text-center text-1xl font-normal tracking-tight text-gray-900 dark:text-white">
-                    No saved matches yet.  Click on the heart icon to save your matches!  Get started at <Link to="/listings" className="link text-blue-600">Matches</Link>.
+                    No liked matches yet.  Get started at <Link to="/listings" className="link text-blue-600">Matches</Link>.
                   </h5>
                 )}
               </>
