@@ -11,7 +11,7 @@ const UserCard = ({handleNotFound}) => {
     <>
     {user ? (
     <section className="user-profile-card">
-      <div className="grid grid-cols-1 px-20 lg:ml-12 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="grid grid-cols-1 px-20 ml-4 lg:ml-12 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
         <div className="flex flex-col items-center gap-4 pb-10">
            
@@ -27,35 +27,50 @@ const UserCard = ({handleNotFound}) => {
                 </h3>
               </div>
 
-          <div className="overview-profile-btn">
+          <div className="overview-btn mt-6 border-t border-gray-100 divide-y divide-gray-100">
             <div className="mx-auto text-center">
               <Link to={`/profile/${user._id}`}>
-                <button
+              <p className="text-sm">Overview</p>  
+              </Link>
+                {/* <button
                   type="button"
                   className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover"
                 >
                   Overview
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
 
-          <div className="edit-profile-btn">
+          <div className="edit-account-btn mt-6 border-t border-gray-100 divide-y divide-gray-100">
             <div className="mx-auto text-center">
               <Link to={`/profile/personal/${tenantId}`}>
-                <button
+                <p className="text-sm">Edit account</p> 
+              </Link>
+                {/* <button
                   type="button"
                   className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover"
                 >
                   Edit account
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
 
-          {/* <div>
-            <p>Preferences</p>
-          </div> */}
+          <div className="update-prof-btn mt-6 border-t border-gray-100 divide-y divide-gray-100">
+            <div className="mx-auto text-center">
+              <Link to={`/profile/preferences/${tenantId}`}>
+                <p className="text-sm">Update profile</p> </Link>
+                {/* <button
+                  type="button"
+                  className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover"
+                >
+                  Update preferences
+                </button>
+              </Link> */}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>) :

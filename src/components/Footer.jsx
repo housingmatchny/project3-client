@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-base-200 text-base-content justify-between min-w-screen sm:gap-24 sm:grid sm:grid-flow-col">
+    <footer className="footer p-10 bg-base-200 text-base-content justify-between max-w-screen sm:gap-24 sm:grid sm:grid-flow-col mx-auto">
       <div className="mt-2">
         <p className="footer-title text-red-700">
           Disclaimer: This is a test site.
@@ -30,10 +30,10 @@ const Footer = () => {
       <a className="link link-hover">Cookie policy</a>
     </nav>  */}
 
-      <div>
+      <div className="subscribe">
       <span aria-label="Enter your email address to sign up for the newsletter"/>
         <header className="footer-title">Be the first to know</header>
-        <fieldset className="form-control w-auto">
+        <fieldset className="form-control">
           {/* <label className="label">
           <span className="label-text">Enter your email address</span>
         </label>   */}
@@ -47,8 +47,9 @@ const Footer = () => {
           >
             <input
               type="email"
-              name="EMAIL"
+              name="username"
               id="mce-EMAIL"
+              autoComplete="username"
               placeholder="username@site.com"
               className="email input input-bordered join-item"
               required
@@ -67,7 +68,7 @@ const Footer = () => {
         </fieldset>
       </div>
 
-      <div className="mb-8">
+      <div className="company-info mb-8">
         <h3 className="text-xl font-semibold">
           HousingMatch, Inc.
           <br />
@@ -80,7 +81,7 @@ const Footer = () => {
           Illustrations from <a href="https://kit8.net/" className="link">Kit8</a>
           <br />
         </p>
-        <p>Copyright © 2023 HousingMatch. All Rights Reserved.</p>
+        <p>Copyright © 2024 HousingMatch. All Rights Reserved.</p>
         
       </div>
 

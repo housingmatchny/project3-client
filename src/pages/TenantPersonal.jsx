@@ -117,8 +117,9 @@ const TenantPersonal = ({handleNotFound}) => {
     }
     </section> */}
 
-    {/* input parts */}
-    <div className="flex flex-col mt-24 lg:mt-40 lg:justify-between gap-8 min-h-screen lg:flex-row lg:gap-48 lg:items-start">
+   {/* whole page */}
+    <div className="flex flex-col items-center mt-24 lg:mt-40 lg:justify-between gap-8 min-h-screen lg:flex-row lg:gap-48 lg:items-start">
+        
         {/* left side */}
         <div className="lg:w-1/3">
           <UserCard />
@@ -153,7 +154,7 @@ const TenantPersonal = ({handleNotFound}) => {
                   <input
                     type="text"
                     id="name"
-                    name="name"
+                    name="name"      
                     value={name}
                     onChange={handleName}
                     className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
@@ -174,7 +175,7 @@ const TenantPersonal = ({handleNotFound}) => {
                     type="email"
                     id="username"
                     name="username"
-                    auto-complete="username"
+                    autoComplete="username"
                     value={email}
                     onChange={handleEmail}
                     className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
@@ -195,7 +196,7 @@ const TenantPersonal = ({handleNotFound}) => {
                     type="password"
                     id="password"
                     name="password"
-                    auto-complete="current-password"
+                    autoComplete="current-password"
                     value={password}
                     onChange={handlePassword}
                     className="block w-4/5 shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"

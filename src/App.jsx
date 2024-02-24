@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import TenantProfile from './pages/TenantProfile'
+import TenantPreferences from './pages/TenantPreferences'
 import TenantPersonal from './pages/TenantPersonal'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -21,6 +22,7 @@ function App() {
   const IsLoggedIn = () => {
     return getToken() ? <Outlet /> : <Navigate to='/signin'/>
   }
+  //if there is a token, allow access to the Outlet pages; otherwise, navigate user to sign in
 
   const IsLoggedOut = () => {
     return !getToken() ? <Outlet /> : <Navigate to='/'/>
@@ -51,6 +53,7 @@ function App() {
             <Route path='/reviews/edit-review/:reviewId' element={<EditReview />} />
             {/* <Route path='/reviews' element={<Reviews />} /> */}
             <Route path='/profile/:tenantId' element={<TenantProfile />} />
+            <Route path='/profile/preferences/:tenantId' element={ <TenantPreferences /> } />
             <Route path='/profile/personal/:tenantId' element={ <TenantPersonal /> } />
 
           </Route>

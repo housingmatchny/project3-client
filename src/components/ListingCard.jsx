@@ -1,4 +1,4 @@
-// ListingCard - features single listing with the updated like.  This is not the listing detail, though!  We link to details through the Listings page
+// ListingCard on Profile page
 
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
@@ -10,43 +10,96 @@ import { Rating } from "react-simple-star-rating";
 import { StarContext } from "../context/star.context";
 import { ListingContext } from "../context/listing.context";
 import { getAverageStar } from "../services/getAverageStar";
+import TinderCard from "react-tinder-card";
 
-//updateListing => updates listing with likes
-//cannot pass overallRating from Listing Details; ListingCard is not under Listing Details in the component tree; therefore we define the function here and pass it down to StarButton Average to show up in the Tenant Profile page
-//singleListing, updateListing from Listings
+//singleListing, toggleCard from Listings
 const ListingCard = ({ singleListing, toggleCard }) => {
+  // const { listings } = useContext(ListingContext);
+
+  // const swiped = (direction, listingToDelete) => {
+  //   console.log("removing: " + listingToDelete);
+  //   setLastDirection(direction);
+  // };
+
+  // const outOfFrame = (listing) => {
+  //   console.log(listing + " left the screen!");
+  // };
+
+
+
   return (
-    
-    <div className="card w-auto md:w-96 bg-base-100 shadow-xl hover:scale-105 transition-all duration-200">
+    // <div className='cardContainer'>
+    //     {listings.map((listing) =>
+    //       <TinderCard className='swipe' 
+    //         key={listing._id} 
+    //         onSwipe={(dir) => swiped(dir, listing.streetAddress)} 
+    //         onCardLeftScreen={() => outOfFrame(listing.streetAddress)}
+    //       >
+    //         <div className='card'>
+    //         <figure>
+    //          <img src={listing.imgUrl} alt="Property Image" />
+    //        </figure>
+    //        <div className="card-body">
+    //          <h2 className="card-title relative">{listing.streetAddress}</h2>
+    //          <p>{listing.borough}</p>
+    //          <div className="absolute right-2 p-4">
+               
+    //            <LikeButton singleListing={listing} toggleCard={toggleCard} />
+    //          </div>
 
-      <figure>
-        <img src={singleListing.imgUrl} alt="Property Image" />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title relative">{singleListing.streetAddress}</h2>
-        <p>{singleListing.borough}</p>
-        <div className="absolute right-2 p-4">
-          {/* //removed top-2 from above */}
-          <LikeButton singleListing={singleListing} toggleCard={toggleCard} />
+    //          <StarButtonAverage overallRating={getAverageStar(listing)} />
+
+    //          <div className="card-actions justify-between items-center mt-2">
+    //            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+    //              {new Intl.NumberFormat("en-US", {
+    //                style: "currency",
+    //                currency: "USD",
+    //                maximumFractionDigits: 0,
+    //              }).format(listing.price)}{" "}
+    //              per month
+    //            </h3>
+
+    //            <Link className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" to={`/listings/details/${listing._id}`} key={listing?._id}> See details </Link>
+
+    //        </div>
+    //        </div>
+    //         </div>
+    //       </TinderCard>
+    //     )}
+    // </div>
+
+      // {/* Original */}
+        <div className="card w-auto md:w-96 bg-base-100 shadow-lg hover:scale-105 transition-all duration-200">
+
+           <figure>
+             <img src={singleListing.imgUrl} alt="Property Image" />
+           </figure>
+           <div className="card-body">
+             <h2 className="card-title relative">{singleListing.streetAddress}</h2>
+             <p>{singleListing.borough}</p>
+             <div className="absolute right-2 p-4">
+                <LikeButton singleListing={singleListing} toggleCard={toggleCard} />
+             </div> 
+
+            <StarButtonAverage overallRating={getAverageStar(singleListing)} />
+
+             <div className="card-actions justify-between items-center mt-2">
+               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                 {new Intl.NumberFormat("en-US",{
+                   style: "currency",
+                   currency: "USD",
+                   maximumFractionDigits: 0,
+                 }).format(singleListing.price)}{" "}
+                 per month
+               </h3>
+
+              <Link className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" to={`/listings/details/${singleListing._id}`} key={singleListing?._id}> See details </Link>
+
+           </div>
+           </div>
         </div>
-
-        <StarButtonAverage overallRating={getAverageStar(singleListing)} />
-
-        <div className="card-actions justify-between items-center mt-2">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-              maximumFractionDigits: 0,
-            }).format(singleListing.price)}{" "}
-            per month
-          </h3>
-
-          <Link className="btn focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover" to={`/listings/details/${singleListing._id}`} key={singleListing?._id}> See details </Link>
-
-      </div>
-      </div>
-    </div>
+      
+   
     
 
     // {/* <Card>

@@ -32,17 +32,11 @@ const Banner = () => {
   return (
     
     // <div className="max-w-screen-2xl container mx-auto x1:px-24 px-4 mt-20 md:mt-40">
-    <div className="h-screen w-screen mx-auto mt-24">
+    <div className="max-h-full md:max-h-[80%] w-screen mx-auto mt-24">
       <div className="mx-12 h-auto py-12 flex flex-col justify-start items-center gap-10 md:flex-row md:justify-between">
 
         {/* left-side text */}
         <div className="flex flex-col md:w-1/2">
-          {/* <motion.div
-              variants={fadeIn=("up", 0.2)}
-              initial="hidden"
-              whileInView={"show"}
-              viewport={{once:false, amount:0.7}}
-            > */}
           <motion.div
             initial={{opacity:0, y:-40}}
             whileInView={{opacity:1, y:0, transition: {
@@ -100,13 +94,9 @@ const Banner = () => {
               delay: 0, //starts animation immediately
               ease: [0.25, 0.25, 0.25, 0.25] //acceleration of Bezier curve
           }}}
-            // initial="hidden"
-            // animate="showRight"
-            // variants={variants}
           >
             <img src={apartment} alt="Illustration of apartments"></img>
           </motion.div>
-            {/* <p className="text-sm">Source: Kit8</p> */}
         </div>
       </div>
     </div>

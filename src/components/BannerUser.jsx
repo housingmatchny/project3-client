@@ -1,3 +1,5 @@
+//banner for logged in users -- decided not to use
+
 import { useNavigate } from "react-router-dom";
 import apartment from "../assets/apartment.png";
 import Listings from "../pages/Listings";

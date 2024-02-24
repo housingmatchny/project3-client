@@ -111,6 +111,7 @@ const TenantProfile = () => {
           </header>
 
           <div className="flex flex-col w-1/2 lg:grid-cols-3 lg:w-1/4 lg:h-1/2 gap-8 my-6 justify-center items-center mx-auto">
+         
           {/* <div className="px-4 py-6 gap-8 md:grid md:grid-flow-row md:grid-cols-2 md:gap-80 md:px-0 md:w-1/2 md:justify-center md:items-center mx-auto"> */}
             {/* if we take away flex flex-col, the div's flex flex-col will take over, despite the md:flex-row setting */}
             {tenantInfo && (

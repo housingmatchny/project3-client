@@ -68,12 +68,13 @@ const Navbar = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
-                <li className="link link-hover">
-                  <Link to="/signup">Sign Up</Link>
-                </li>
                 
                 <li className="link link-hover">
                   <Link to="/signin">Sign In</Link>
+                </li>
+                
+                <li className="link link-hover">
+                  <Link to="/signup">Get Started</Link>
                 </li>
                 {/* <li>
                   <a>Parent</a>
@@ -137,6 +138,7 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
+         
               <li className="link link-hover">
               <Link to={`/profile/${user._id}`}>
                 Profile
@@ -160,7 +162,7 @@ const Navbar = () => {
 
         {/* larger screens */}
         <div className="navbar-end hidden md:flex">
-          <ul className="menu menu-horizontal gap-2">
+          <ul className="menu menu-horizontal gap-2 md:flex-nowrap">
             <li className="link link-hover">
             <Link to={`/profile/${user._id}`}>
               Profile
