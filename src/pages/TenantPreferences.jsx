@@ -10,7 +10,36 @@ import Calendar from 'react-calendar'
 
 
 const TenantPreferences = () => {
-  const{user,setUser} = useContext(AuthContext)
+  const{user, setUser} = useContext(AuthContext)
+  const [prefs, setPrefs] = useState(null)
+
+  //shows and saves new input
+  const handlePrefs = () => {
+
+  }
+
+  //posts to API endpoint
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let newPrefs = {
+      boroughPreference,
+      program
+    };
+    //send newPrefs to the API endpoint; if successful, the .then block will execute: retrieve prefs by id and reset/clear prefs after successful submission
+    post("/preferences/:tenantId", newPrefs)
+      .then((response) => {
+        console.log("Updated Prefs ===>", response.data);
+        updateListing(response.data.updatedListing)
+        setPrefs("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+  
 
 
   return (
@@ -23,7 +52,6 @@ const TenantPreferences = () => {
         </div>
       
       {/* right side */}
-      
       <div>
       <div className="px-4 sm:px-0">
         <h3 className="text-base font-semibold leading-7 text-gray-900">My Profile</h3>
@@ -32,12 +60,13 @@ const TenantPreferences = () => {
 
       {/* top border */}
       <div className="mt-6 border-t border-gray-100">
+        {/* add closing div up here instead? */}
 
-      {/* horizontal dividers between child elements along the y-axis */}
+      {/* questions section. all under dl tag for formatting. "divide" gives horizontal dividers between the child elements along the y-axis */}
         <dl className="divide-y divide-gray-100"> 
 
-      {/* name */}
-        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        {/* name */}
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Full name</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user ? user.name : ""}</dd>
           </div>
@@ -52,14 +81,14 @@ const TenantPreferences = () => {
               <div className="col-span-full">
                 <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
                 </label>
-                <p className="text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
+                <p className="text-sm leading-6 text-gray-600">Write a few sentences about yourself to introduce yourself to landlords, brokers, and property managers.</p>
                 <div className="mt-2">
                   <textarea
                     id="about"
                     name="about"
                     rows={3}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-700 sm:text-sm sm:leading-6"
-                        defaultValue={''}
+                    defaultValue={''}
                   />
                 </div>
                 
@@ -68,16 +97,16 @@ const TenantPreferences = () => {
             </dd>
           </div>
           
-          {/* boroughPreference */}
-            {/* <Checkbox index={0} /> */}
-            <Checkbox section={`borough`}/>
+        {/* boroughPreference */}
+          {/* <Checkbox index={0} /> */}
+          <Checkbox section={`borough`}/>
             
           
-           {/* program */}
-           {/* <Checkbox index={1} /> */}
-           <Checkbox section={`program`}/>
+        {/* program */}
+          {/* <Checkbox index={1} /> */}
+          <Checkbox section={`program`}/>
 
-          {/* householdSize */}
+        {/* householdSize */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">
               # People
@@ -87,13 +116,13 @@ const TenantPreferences = () => {
             </dd>
           </div>
 
-          {/* programAmt */}
+        {/* programAmt */}
           {/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Program amount</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">$$</dd>
           </div> */}
 
-          {/* maxPrice */}
+        {/* maxPrice */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">
               Max rent price
@@ -103,7 +132,7 @@ const TenantPreferences = () => {
             </dd>
           </div>
 
-           {/* beds */}
+        {/* beds */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">
               # Bedrooms
@@ -113,7 +142,7 @@ const TenantPreferences = () => {
             </dd>
           </div>
 
-          {/* baths */}
+        {/* baths */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">
               # Baths
@@ -123,7 +152,7 @@ const TenantPreferences = () => {
             </dd>
           </div>
 
-          {/* pets */}
+        {/* pets */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">
               Pet policy
@@ -133,7 +162,7 @@ const TenantPreferences = () => {
             </dd>
           </div>
 
-          {/* creditScore */}
+        {/* creditScore */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Credit score</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -141,7 +170,7 @@ const TenantPreferences = () => {
             </dd>
           </div>
 
-          {/* annualIncome */}
+        {/* annualIncome */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Annual income</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -149,11 +178,11 @@ const TenantPreferences = () => {
             </dd>
           </div>
           
-          {/* employmentStatus */}
+        {/* employmentStatus */}
           {/* <Checkbox index={2} /> */}
           <Checkbox section={`employmentStatus`}/>
 
-          {/* moveInDate */}
+        {/* moveInDate */}
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Earliest move-in</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -161,7 +190,7 @@ const TenantPreferences = () => {
             </dd>
           </div>
 
-          {/* viewingAvailability */}
+        {/* viewingAvailability */}
           {/* <Checkbox index={3} /> */}
           <Checkbox section={`viewingAvailability`}/>
 

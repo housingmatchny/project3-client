@@ -1,5 +1,6 @@
 import React from 'react'
 
+//object of objects with arrays
 const data = {
   borough:{
     title:'Borough',
