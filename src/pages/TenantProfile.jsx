@@ -17,12 +17,13 @@ const TenantProfile = () => {
   const { user, setUser } = useContext(AuthContext);
 
   const [errorMessage, setErrorMessage] = useState(null)
-  const [erroroundMessage, setErrorFoundMessage] = useState(null)
+  const [errorFoundMessage, setErrorFoundMessage] = useState(null)
 
+  // checks whether reviews exist
   const handleError = () => {
     setErrorMessage("You haven't written any reviews.")
   }
-
+  // checks whether user exists
   const handleNotFound = () => {
     setErrorFoundMessage("User not found.")
   }
