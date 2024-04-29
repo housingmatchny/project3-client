@@ -27,6 +27,7 @@ const TenantPersonal = ({handleNotFound}) => {
         setTenantInfo(response.data.user); //if you look at the response.data body of TenantInfo, you'll see user as a key
         setUser(response.data.user); //from Context
         // storeToken(response.data.authToken);
+        // console.log("Token ==>", response.data.authToken)
         // console.log("Name ==>", response.data.user.name)
         setName(response.data.user.name)
         setEmail(response.data.user.email)

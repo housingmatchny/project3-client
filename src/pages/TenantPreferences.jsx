@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { get, put, axiosDelete } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import { useState, useContext } from "react";
@@ -6,12 +7,17 @@ import Checkbox from "../components/Checkbox";
 import Dropdown from "../components/Dropdown";
 import FreeInput from "../components/FreeInput";
 import Calendar from 'react-calendar'
+import axios from "axios";
 
 
+//follow TenantPersonal page as a guide
+//set up form to submit
 
-const TenantPreferences = () => {
+const TenantPreferences = ({checked}) => {
   const{user, setUser} = useContext(AuthContext)
-  const [prefs, setPrefs] = useState(null)
+  const [prefs, setPrefs] = useState("")
+  
+  const { tenantId } = useParams();
 
   //shows and saves new input
   const handlePrefs = () => {
@@ -19,18 +25,15 @@ const TenantPreferences = () => {
   }
 
   //posts to API endpoint
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
-
     let newPrefs = {
-      boroughPreference,
-      program
+      checked
     };
-    //send newPrefs to the API endpoint; if successful, the .then block will execute: retrieve prefs by id and reset/clear prefs after successful submission
-    post("/preferences/:tenantId", newPrefs)
+    //send newPrefs to the API endpoint; if successful, the .then block will execute
+    put(`/profile/preferences/${tenantId}`, newPrefs)
       .then((response) => {
         console.log("Updated Prefs ===>", response.data);
-        updateListing(response.data.updatedListing)
         setPrefs("");
       })
       .catch((err) => {
@@ -59,10 +62,10 @@ const TenantPreferences = () => {
       </div>
 
       {/* top border */}
-      <div className="mt-6 border-t border-gray-100">
-        {/* add closing div up here instead? */}
+      <div className="mt-6 border-t border-gray-100" />
 
       {/* questions section. all under dl tag for formatting. "divide" gives horizontal dividers between the child elements along the y-axis */}
+      <form onSubmit={handleFormSubmit}>
         <dl className="divide-y divide-gray-100"> 
 
         {/* name */}
@@ -193,46 +196,15 @@ const TenantPreferences = () => {
         {/* viewingAvailability */}
           {/* <Checkbox index={3} /> */}
           <Checkbox section={`viewingAvailability`}/>
-
-
-
-          {/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
-            <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
-                <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                  <div className="flex w-0 flex-1 items-center">
-                    <PaperClipIcon className="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                    <div className="ml-4 flex min-w-0 flex-1 gap-2">
-                      <span className="truncate font-medium">resume_back_end_developer.pdf</span>
-                      <span className="flex-shrink-0 text-gray-400">2.4mb</span>
-                    </div>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                      Download
-                    </a>
-                  </div>
-                </li>
-                <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                  <div className="flex w-0 flex-1 items-center">
-                    <PaperClipIcon className="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                    <div className="ml-4 flex min-w-0 flex-1 gap-2">
-                      <span className="truncate font-medium">coverletter_back_end_developer.pdf</span>
-                      <span className="flex-shrink-0 text-gray-400">4.5mb</span>
-                    </div>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                      Download
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </dd>
-          </div> */}
+          
+          <button
+            type="submit"
+            className="focus:outline-none tracking-tight text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 link link-hover"
+            >
+            Update profile
+          </button>
         </dl>
-      </div>
+      </form>
 
 
       </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 //object of objects with arrays
 const data = {
@@ -47,24 +47,24 @@ const data = {
 }
 
 const Checkbox = ({section}) => {
-    
-      // //list of all the keys in an array; e.g., ['borough','program']
-      // let keys = Object.keys(data)
+  //expect an array for checked, e.g., [Staten Island, Manhattan]
+  const [checked, setChecked] = useState([])
 
-      // console.log(section, typeof section)
+  //e.g., Staten Island already checked.  Manhattan not yet checked.
+  // Handle checked selection
+  const handleChecked = (el) => {
+    // Check if the selected item is already checked; 'includes' is an array method that evaluates to boolean true or false
+    if (checked.includes(el)) {
+      // If checked, remove it from the list
+      setChecked(checked.filter((selected) => selected !== el));
+    } else {
+      // If not previously checked, add it to the list in the array
+      setChecked([...checked, el]);
+      console.log("New array ==>", checked)
+    }
+  };
 
-      // // Handle borough selection
-      // const handleBoroughPrefs = (borough) => {
-      //   // Check if the borough is already selected
-      //   if (boroughPrefs.includes(borough)) {
-      //     // If selected, remove it from the list
-      //     setBoroughPrefs(boroughPrefs.filter((checked) => checked !== borough));
-      //   } else {
-      //     // If not selected, add it to the list
-      //     setBoroughPrefs([...boroughPrefs, borough]);
-      //   }
-      // };
-    // console.log(data[section])
+
       return (
         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
           <dt className="text-sm font-medium leading-6 text-gray-900">
@@ -86,6 +86,7 @@ const Checkbox = ({section}) => {
                     // name={data[keys[index]].title}
                     //e.g., name="borough"
                     type="checkbox"
+                    onChange={handleChecked}
                     className="h-4 w-4 rounded border-gray-300 text-purple-700 focus:ring-purple-800"
                   />
                 </div>
